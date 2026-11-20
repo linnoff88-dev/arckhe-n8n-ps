@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>n8n Powerhouse — expertise n8n para o Claude Code</title>
+<meta name="description" content="Framework de skills que dá ao Claude expertise para construir, validar e implantar workflows n8n em produção, direto no Claude Code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;display:block}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px 1fr;gap:16px;margin-bottom:26px}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex .card{display:flex;flex-direction:column;gap:.6em}
+  .ex .card pre{margin:0}
+  .ex .card figcaption{color:var(--mut);font-size:.88rem}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+  table{width:100%;border-collapse:collapse;font-size:.9rem}
+  table th,table td{text-align:left;padding:.55em .7em;border-bottom:1px solid var(--line)}
+  table th{color:var(--mut);font-family:Sora;font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">⚙️</span> n8n Powerhouse</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#oque">O que é</a>
+    <a class="sec" href="#fluxo">Como funciona</a>
+    <a class="sec" href="#guia">Guia de uso</a>
+    <a class="sec" href="#exemplos">Exemplos</a>
+    <a class="sec" href="#roadmap">Skills</a>
+    <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
+    <a class="btn" href="https://github.com/inematds/n8n-ps" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Framework de skills para Claude Code</span>
+      <h1>Transforme o Claude num <span class="amb">especialista n8n</span></h1>
+      <p class="lead">8 skills (~25.000 palavras de expertise) + integração com o n8n MCP. O Claude passa a conhecer os padrões certos de workflow e a criar, validar e implantar workflows de verdade na sua instância n8n — não só dar conselho genérico.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">Começar o guia</a>
+        <a class="btn ghost" href="https://github.com/inematds/n8n-ps" target="_blank" rel="noopener">Ver no GitHub</a>
+      </div>
+    </div>
+    <figure><img src="assets/hero.png" alt="Ilustração do n8n Powerhouse — engrenagens e fluxos conectados em dark âmbar"></figure>
+  </div>
+</header>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">O que é</span>
+  <h2>Skills + MCP: o Claude conhece n8n e faz n8n</h2>
+  <p class="sub">O n8n Powerhouse é um repositório de skills para <a href="https://claude.ai/claude-code" target="_blank" rel="noopener">Claude Code</a> que dá ao Claude expertise profunda em automação n8n, combinada com acesso direto à sua instância via <a href="https://www.npmjs.com/package/n8n-mcp" target="_blank" rel="noopener">n8n MCP</a>.</p>
+  <div class="grid g3">
+    <div class="card"><h3>📚 8 skills especializadas</h3><p>Conhecimento profundo sobre padrões, sintaxe de expressões, configuração de nodes e boas práticas do n8n — 46 arquivos, ~25.000 palavras.</p></div>
+    <div class="card"><h3>🔌 Integração n8n MCP</h3><p>Conexão direta com a sua instância n8n (cloud ou self-hosted) para pesquisar nodes, criar/atualizar workflows e validar tudo antes de implantar.</p></div>
+    <div class="card"><h3>🛡️ Orientação para produção</h3><p>Conhecimento embutido sobre idempotência, tratamento de erros, segurança de webhooks e checklists de prontidão pré-implantação.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">Como funciona</span>
+  <h2>Do pedido em português ao workflow criado</h2>
+  <p class="sub">Você descreve o que precisa automatizar; o Claude percorre as camadas de skills e usa o MCP pra executar de verdade na sua instância n8n.</p>
+  <div class="flow">
+    <span>Planejamento</span><span class="arr">→</span>
+    <span>Implementação</span><span class="arr">→</span>
+    <span>Código &amp; sintaxe</span><span class="arr">→</span>
+    <span>Validação</span><span class="arr">→</span>
+    <span>Ferramentas n8n MCP</span>
+  </div>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="card"><h3>1. n8n-workflow-architect</h3><p>Analisa o stack (Shopify, Zoho, HubSpot...), decide n8n vs Python vs híbrido, avalia prontidão para produção.</p></div>
+    <div class="card"><h3>2. Padrões + nodes + MCP</h3><p><code>n8n-workflow-patterns</code>, <code>n8n-node-configuration</code> e <code>n8n-mcp-tools-expert</code> cuidam de webhook, API, banco, IA, agendamento e seleção de ferramenta.</p></div>
+    <div class="card"><h3>3. Código, sintaxe e validação</h3><p><code>n8n-code-javascript</code>, <code>n8n-code-python</code> e <code>n8n-expression-syntax</code> resolvem o node Code e as expressões <code>{{ }}</code>; <code>n8n-validation-expert</code> interpreta erros e roda o checklist antes de implantar.</p></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Pré-requisitos</span>
+  <h2>O que precisa estar pronto</h2>
+  <p class="sub">Só três coisas: Claude Code instalado, uma instância n8n com API habilitada, e Node.js pra rodar o MCP via <code>npx</code>.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Claude Code</h3><p>CLI da Anthropic pra rodar com o Claude no terminal.</p><pre><span class="c"># instalar / abrir</span>
+claude</pre></div>
+    <div class="card"><h3>Instância n8n</h3><p>Cloud (<code>*.app.n8n.cloud</code>) ou self-hosted. Community precisa da API pública habilitada.</p><pre><span class="c"># self-hosted: variável de ambiente</span>
+N8N_PUBLIC_API_ENABLED=true</pre></div>
+    <div class="card"><h3>Node.js 18+</h3><p>Necessário pra rodar o pacote <code>n8n-mcp</code> via <code>npx</code> (sem instalação global).</p><pre><span class="c"># checar versão</span>
+node -v</pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">Guia de uso · passo a passo</span>
+  <h2>Do zero à primeira automação</h2>
+  <p class="sub">Cinco passos: chave de API do n8n, MCP instalado, repositório clonado, Claude Code rodando, e um pedido em português.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Pegue a chave de API do n8n</h3>
+    <p>No dashboard do n8n: <strong>Settings → API → Create API Key</strong>. Copie a chave gerada.</p>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Instale o n8n MCP no Claude Code</h3>
+    <p>Registra a ferramenta MCP que dá ao Claude acesso direto à sua instância — troque a URL e a chave pelos seus.</p>
+<pre><span class="k">claude mcp add n8n-mcp-api \
+  -e MCP_MODE=stdio \
+  -e LOG_LEVEL=error \
+  -e DISABLE_CONSOLE_OUTPUT=true \
+  -e N8N_API_URL=https://SUA-INSTANCIA.app.n8n.cloud \
+  -e N8N_API_KEY=sua-chave-api-aqui \
+  -- npx -y n8n-mcp</span>  <span class="c"># registra o MCP no Claude Code</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Clone o repositório</h3>
+    <p>É onde vivem as 8 skills, em <code>.claude/skills/</code> — o Claude Code as carrega automaticamente ao rodar dentro da pasta.</p>
+<pre><span class="k">git clone https://github.com/inematds/n8n-ps.git
+cd n8n-ps</span>  <span class="c"># entra no projeto</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Inicie o Claude Code</h3>
+    <p>Rodando dentro da pasta do repo, o Claude já ganha as 8 skills de n8n mais o MCP conectado.</p>
+<pre><span class="k">claude</span>  <span class="c"># abre a sessão com as skills carregadas</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>Verifique e peça a automação</h3>
+    <p>Confirme que as skills e a conexão MCP estão ativas, depois descreva o que quer automatizar em português.</p>
+<pre><span class="k">Quais skills de n8n você tem disponíveis?
+Liste meus workflows do n8n</span>  <span class="c"># testes de sanidade</span>
+
+<span class="k">Construa um workflow que sincronize pedidos do Shopify com meu CRM</span>  <span class="c"># pedido real</span></pre>
+  </div></div>
+</div></section>
+
+<section id="exemplos"><div class="wrap">
+  <span class="chip">Exemplos</span>
+  <h2>Prompts que você pode usar direto</h2>
+  <p class="sub">Do <code>examples/README.md</code> do projeto — descreva o que precisa e o Claude usa as skills + MCP pra construir.</p>
+  <div class="ex">
+    <div class="card">
+      <h3>Processamento de webhook</h3>
+      <pre>Construa um webhook que receba envios de formulário,
+valide o email, armazene em um banco de dados
+e envie uma notificação no Slack.</pre>
+      <figcaption>Padrão: Webhook Processing (skill n8n-workflow-patterns).</figcaption>
+    </div>
+    <div class="card">
+      <h3>Seleção de ferramenta</h3>
+      <pre>Devo usar n8n ou Python para processar
+50.000 registros de clientes diariamente?</pre>
+      <figcaption>A skill n8n-workflow-architect decide entre n8n, Python ou híbrido.</figcaption>
+    </div>
+    <div class="card">
+      <h3>Sincronização de banco</h3>
+      <pre>Sincronize novos clientes do Shopify para meu
+banco Postgres diariamente. Trate duplicatas
+verificando o email.</pre>
+      <figcaption>Padrão: Database Operations, com idempotência embutida.</figcaption>
+    </div>
+    <div class="card">
+      <h3>Debug de expressão</h3>
+      <pre>Minha expressão não está funcionando: {{ $json.email }}
+O webhook envia {"body": {"email": "test@example.com"}}</pre>
+      <figcaption>A skill n8n-expression-syntax corrige para <code>{{ $json.body.email }}</code>.</figcaption>
+    </div>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">As 8 skills</span>
+  <h2>Camadas do framework</h2>
+  <p class="sub">Cada skill cobre uma camada da construção de um workflow, do planejamento estratégico até a validação pré-implantação.</p>
+  <table>
+    <tr><th>Skill</th><th>Propósito</th><th>Decisão chave</th></tr>
+    <tr><td>n8n-workflow-architect</td><td>Planejamento estratégico</td><td>"Devo usar n8n ou Python?"</td></tr>
+    <tr><td>n8n-workflow-patterns</td><td>Padrões de implementação</td><td>"Qual é o padrão certo para webhooks?"</td></tr>
+    <tr><td>n8n-node-configuration</td><td>Configuração de nodes</td><td>"Quais campos esse node precisa?"</td></tr>
+    <tr><td>n8n-mcp-tools-expert</td><td>Orientação MCP</td><td>"Qual ferramenta MCP devo usar?"</td></tr>
+    <tr><td>n8n-code-javascript</td><td>Nodes Code em JS</td><td>"Como acesso $json no Code?"</td></tr>
+    <tr><td>n8n-code-python</td><td>Nodes Code em Python</td><td>"Quais módulos Python estão disponíveis?"</td></tr>
+    <tr><td>n8n-expression-syntax</td><td>Debug de expressões</td><td>"Por que minha expressão não funciona?"</td></tr>
+    <tr><td>n8n-validation-expert</td><td>Correção de erros</td><td>"O que esse erro de validação significa?"</td></tr>
+  </table>
+  <div class="phase" style="margin-top:22px"><div class="tag">Hoje</div><div class="d"><strong>Skills + MCP prontos pra uso</strong><span>46 arquivos, ~25.000 palavras, cobrindo planejamento, padrões, nodes, código, expressões e validação.</span></div></div>
+  <div class="phase"><div class="tag">Extensível</div><div class="d"><strong>Adicione suas próprias skills</strong><span>Basta criar <code>.claude/skills/nome-da-sua-skill/</code> com um SKILL.md e atualizar <code>.claude/CLAUDE.md</code>.</span></div></div>
+  <div class="phase"><div class="tag">Limite conhecido</div><div class="d"><strong>Claude não ativa workflows</strong><span>A API do n8n não suporta ativação — workflows são criados inativos, você revisa e ativa na UI.</span></div></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">Claude Code</div><div class="pill">n8n MCP</div><div class="pill">Skills Markdown</div><div class="pill">MIT</div>
+    <p style="margin-top:18px">n8n Powerhouse · framework de skills n8n para Claude Code ·
+      <a href="https://github.com/inematds/n8n-ps">inematds/n8n-ps</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='n8n-ps-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      localStorage.setItem(KEY, light?'light':'dark');
+    });
+  })();
+</script>
+</body>
+</html>

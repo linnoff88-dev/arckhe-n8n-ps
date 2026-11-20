@@ -1,0 +1,653 @@
+﻿# n8n Powerhouse
+
+<div align="center">
+  <img src="capa/logo.svg" alt="Arckhé AI" height="48" />
+  <p><strong>Arckhé AI</strong></p>
+</div>
+
+
+**Transforme o Claude em um especialista em automaÃ§Ã£o n8n.** Construa, valide e implante workflows prontos para produÃ§Ã£o atravÃ©s de conversas.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![n8n](https://img.shields.io/badge/n8n-Automation-orange)](https://n8n.io)
+[![Claude Code](https://img.shields.io/badge/Claude-Code-blue)](https://claude.ai/claude-code)
+
+> ðŸ‡¬ðŸ‡§ [English version](README-EN.md)
+
+---
+
+## O Problema
+
+Construir workflows no n8n normalmente requer:
+- Aprender as configuraÃ§Ãµes e peculiaridades dos nodes do n8n
+- Entender quais nodes existem e como configurÃ¡-los
+- Conhecer os padrÃµes corretos para webhooks, APIs e bancos de dados
+- Debugar erros de sintaxe em expressÃµes
+- Descobrir por que seu workflow nÃ£o estÃ¡ validando
+
+**E se o Claude simplesmente soubesse tudo isso?**
+
+---
+
+## A SoluÃ§Ã£o
+
+O n8n Powerhouse Ã© um **framework de skills** que dÃ¡ ao Claude expertise profunda em automaÃ§Ã£o n8n. Ele combina:
+
+1. **8 skills especializadas** - Conhecimento profundo sobre padrÃµes, sintaxe e boas prÃ¡ticas do n8n
+2. **IntegraÃ§Ã£o n8n MCP** - ConexÃ£o direta com sua instÃ¢ncia n8n para criar/editar/validar workflows
+3. **OrientaÃ§Ã£o para produÃ§Ã£o** - Conhecimento embutido sobre idempotÃªncia, tratamento de erros e questÃµes operacionais
+
+---
+
+## Antes e Depois
+
+### Antes (sem o n8n Powerhouse)
+
+```
+VocÃª: Construa um workflow que sincronize pedidos do Shopify com meu CRM
+
+Claude: Posso ajudÃ¡-lo a desenhar um workflow. VocÃª precisaria de:
+1. Um node trigger do Shopify
+2. Alguma transformaÃ§Ã£o
+3. Um node de CRM
+
+VocÃª precisarÃ¡ configurar isso no n8n...
+[Conselho genÃ©rico, sem implementaÃ§Ã£o real]
+```
+
+### Depois (com o n8n Powerhouse)
+
+```
+VocÃª: Construa um workflow que sincronize pedidos do Shopify com meu CRM
+
+Claude: Vou construir isso para vocÃª. Deixe-me:
+1. Analisar seu stack â†’ Recomendando n8n puro (ambos tÃªm nodes OAuth)
+2. Aplicar padrÃ£o de processamento de webhook com idempotÃªncia
+3. Criar o workflow na sua instÃ¢ncia n8n...
+
+âœ… Workflow criado: "Shopify Order â†’ Zoho CRM + Slack"
+   ID: BbRLnEFYH9f4T6Jr
+   URL: https://sua-instancia.app.n8n.cloud/workflow/BbRLnEFYH9f4T6Jr
+
+PrÃ³ximos passos:
+1. Adicione suas credenciais do Shopify e Zoho
+2. Ative o workflow
+```
+
+**O Claude realmente constrÃ³i e implanta o workflow.**
+
+---
+
+## O Que SÃ£o Skills do Claude Code?
+
+[Claude Code](https://claude.ai/claude-code) Ã© a ferramenta CLI da Anthropic para trabalhar com Claude no seu terminal. **Skills** sÃ£o coleÃ§Ãµes de arquivos markdown que dÃ£o ao Claude conhecimento especializado.
+
+Quando vocÃª coloca skills em `.claude/skills/`, o Claude as lÃª e ganha essa expertise. O n8n Powerhouse fornece 8 skills (~25.000 palavras de conhecimento sobre n8n) cobrindo:
+
+- DecisÃµes de arquitetura
+- PadrÃµes de workflow
+- ConfiguraÃ§Ã£o de nodes
+- Sintaxe de cÃ³digo
+- Debug de expressÃµes
+- ValidaÃ§Ã£o
+
+---
+
+## O Que Ã© o n8n MCP?
+
+[MCP (Model Context Protocol)](https://modelcontextprotocol.io/) permite que o Claude use ferramentas externas. O [n8n MCP](https://www.npmjs.com/package/n8n-mcp) dÃ¡ ao Claude ferramentas para:
+
+- **Pesquisar** nodes e templates
+- **Criar** workflows na sua instÃ¢ncia n8n
+- **Atualizar** workflows existentes
+- **Validar** configuraÃ§Ãµes
+- **Disparar** workflows via webhook
+- **Listar** execuÃ§Ãµes e debugar
+
+Juntos, skills + MCP = Claude pode **conhecer** n8n E **fazer** n8n.
+
+---
+
+## InÃ­cio RÃ¡pido
+
+### 1. Instalar o n8n MCP
+
+```bash
+claude mcp add n8n-mcp-api \
+  -e MCP_MODE=stdio \
+  -e LOG_LEVEL=error \
+  -e DISABLE_CONSOLE_OUTPUT=true \
+  -e N8N_API_URL=https://SUA-INSTANCIA.app.n8n.cloud \
+  -e N8N_API_KEY=sua-chave-api-aqui \
+  -- npx -y n8n-mcp
+```
+
+**Obtenha sua chave API:** Dashboard do n8n â†’ Settings â†’ API â†’ Create API Key
+
+### 2. Clonar Este RepositÃ³rio
+
+```bash
+git clone https://github.com/inematds/n8n-ps.git
+cd n8n-ps
+```
+
+### 3. Iniciar o Claude Code
+
+```bash
+claude
+```
+
+Pronto. O Claude agora tem expertise completa em n8n.
+
+---
+
+## Exemplos do Mundo Real
+
+### Exemplo 1: AutomaÃ§Ã£o de E-commerce
+
+```
+VocÃª: Eu tenho uma loja Shopify e uso Zoho CRM. Quando alguÃ©m faz um pedido,
+      quero sincronizar o cliente no Zoho e notificar minha equipe no Slack.
+
+Claude: Vou analisar seu stack e construir isso...
+
+[Claude usa n8n-workflow-architect para analisar]
+â†’ Shopify: OAuth, node trigger nativo âœ“
+â†’ Zoho CRM: OAuth, node nativo âœ“
+â†’ Slack: OAuth, node nativo âœ“
+â†’ RecomendaÃ§Ã£o: n8n puro (todos os serviÃ§os suportados)
+â†’ PadrÃ£o: Processamento de Webhook com idempotÃªncia
+
+[Claude usa n8n MCP para criar workflow]
+â†’ Criado: Shopify Order â†’ Zoho CRM + Slack
+â†’ Inclui: PrevenÃ§Ã£o de duplicatas (verificar email antes de criar)
+â†’ Inclui: Tratamento de erros
+â†’ Inclui: NotificaÃ§Ã£o Slack com detalhes do pedido
+
+Aqui estÃ¡ seu workflow: [link]
+```
+
+### Exemplo 2: SeleÃ§Ã£o de Ferramenta
+
+```
+VocÃª: Devo usar n8n ou Python para processar 50.000 registros de clientes diariamente?
+
+Claude: [Usa n8n-workflow-architect/tool-selection-matrix.md]
+
+Para 50.000 registros, recomendo uma **abordagem hÃ­brida**:
+
+Use n8n para:
+- Disparo (schedule trigger)
+- AutenticaÃ§Ã£o (se APIs precisarem de OAuth)
+- NotificaÃ§Ãµes (alertas no Slack)
+
+Use Python para:
+- O processamento real de dados (>5.000 registros Ã© o limite)
+- Streaming eficiente de memÃ³ria
+- TransformaÃ§Ãµes complexas
+
+Arquitetura:
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”     â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”     â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ n8n         â”‚     â”‚ Python      â”‚     â”‚ n8n         â”‚
+â”‚ (Schedule)  â”‚ â”€â”€â–º â”‚ (Process)   â”‚ â”€â”€â–º â”‚ (Notify)    â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜     â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+
+Por que nÃ£o n8n puro?
+- n8n roda em Node.js com limites de memÃ³ria
+- 50k registros provavelmente travaria ou daria timeout
+- Python pode fazer streaming/chunks eficientemente
+```
+
+### Exemplo 3: Debugando ExpressÃµes
+
+```
+VocÃª: Minha expressÃ£o nÃ£o estÃ¡ funcionando: {{ $json.email }}
+      O webhook envia {"body": {"email": "test@example.com"}}
+
+Claude: [Usa n8n-expression-syntax/COMMON_MISTAKES.md]
+
+Encontrei o problema! Dados do webhook estÃ£o aninhados em `body`.
+
+âŒ Errado: {{ $json.email }}
+âœ… Correto: {{ $json.body.email }}
+
+O node de webhook encapsula o payload:
+{
+  "headers": {...},
+  "body": {           â† Seus dados estÃ£o aqui
+    "email": "test@example.com"
+  }
+}
+```
+
+### Exemplo 4: ProntidÃ£o para ProduÃ§Ã£o
+
+```
+VocÃª: Estou prestes a implantar meu workflow de webhook do Stripe. O que devo verificar?
+
+Claude: [Usa n8n-workflow-architect/production-readiness.md]
+
+Checklist prÃ©-implantaÃ§Ã£o para webhooks de pagamento:
+
+â–¡ SeguranÃ§a
+  - Verificar assinaturas de webhook do Stripe (node Code)
+  - Rejeitar assinaturas invÃ¡lidas imediatamente
+
+â–¡ IdempotÃªncia
+  - Armazenar IDs de eventos processados
+  - Verificar antes de processar: SELECT 1 FROM processed_events WHERE event_id = $1
+  - Pular se jÃ¡ processado
+
+â–¡ Tratamento de Erros
+  - Workflow de Error Trigger â†’ Slack #alerts
+  - Registrar todas as falhas com contexto
+
+â–¡ Tempo de Resposta
+  - Usar responseMode: "onReceived" (confirmar para o Stripe imediatamente)
+  - Processar de forma assÃ­ncrona (Stripe tenta novamente em respostas lentas)
+
+â–¡ Testes
+  - Usar modo de teste do Stripe
+  - Verificar com Stripe CLI: stripe trigger payment_intent.succeeded
+
+Quer que eu adicione esses padrÃµes ao seu workflow?
+```
+
+---
+
+## Arquitetura
+
+```
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                         REQUISIÃ‡ÃƒO DO USUÃRIO                            â”‚
+â”‚         "Preciso automatizar X com Shopify, HubSpot e IA"               â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                    â”‚
+                                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                      CAMADA DE PLANEJAMENTO                              â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚  â”‚                    n8n-workflow-architect                          â”‚  â”‚
+â”‚  â”‚  â€¢ Analisar stack de negÃ³cios (Shopify, Zoho, HubSpot, etc.)      â”‚  â”‚
+â”‚  â”‚  â€¢ Decidir: n8n vs Python vs HÃ­brido                               â”‚  â”‚
+â”‚  â”‚  â€¢ Avaliar requisitos de prontidÃ£o para produÃ§Ã£o                   â”‚  â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                    â”‚
+                    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                    â–¼               â–¼               â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                    CAMADA DE IMPLEMENTAÃ‡ÃƒO                               â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚  â”‚ n8n-workflow-       â”‚ â”‚ n8n-node-           â”‚ â”‚ n8n-mcp-tools-    â”‚  â”‚
+â”‚  â”‚ patterns            â”‚ â”‚ configuration       â”‚ â”‚ expert            â”‚  â”‚
+â”‚  â”‚                     â”‚ â”‚                     â”‚ â”‚                   â”‚  â”‚
+â”‚  â”‚ â€¢ Processam. webhookâ”‚ â”‚ â€¢ Config. de nodes  â”‚ â”‚ â€¢ SeleÃ§Ã£o de tool â”‚  â”‚
+â”‚  â”‚ â€¢ IntegraÃ§Ã£o API    â”‚ â”‚ â€¢ Depend. de props  â”‚ â”‚ â€¢ Ajuda parÃ¢metrosâ”‚  â”‚
+â”‚  â”‚ â€¢ Ops de banco      â”‚ â”‚ â€¢ Config. de auth   â”‚ â”‚ â€¢ PadrÃµes MCP     â”‚  â”‚
+â”‚  â”‚ â€¢ Workflows IA      â”‚ â”‚ â€¢ Config. operaÃ§Ã£o  â”‚ â”‚                   â”‚  â”‚
+â”‚  â”‚ â€¢ Tarefas agendadas â”‚ â”‚                     â”‚ â”‚                   â”‚  â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                    â”‚
+                    â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+                    â–¼               â–¼               â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                      CAMADA DE CÃ“DIGO E SINTAXE                          â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â” â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚  â”‚ n8n-code-           â”‚ â”‚ n8n-code-           â”‚ â”‚ n8n-expression-   â”‚  â”‚
+â”‚  â”‚ javascript          â”‚ â”‚ python              â”‚ â”‚ syntax            â”‚  â”‚
+â”‚  â”‚                     â”‚ â”‚                     â”‚ â”‚                   â”‚  â”‚
+â”‚  â”‚ â€¢ $input/$json      â”‚ â”‚ â€¢ _input/_json      â”‚ â”‚ â€¢ sintaxe {{ }}   â”‚  â”‚
+â”‚  â”‚ â€¢ uso de $helpers   â”‚ â”‚ â€¢ Biblioteca padrÃ£o â”‚ â”‚ â€¢ acesso $json    â”‚  â”‚
+â”‚  â”‚ â€¢ manejo DateTime   â”‚ â”‚ â€¢ Limites Python    â”‚ â”‚ â€¢ refs $node      â”‚  â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜ â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                    â”‚
+                                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                      CAMADA DE VALIDAÃ‡ÃƒO                                 â”‚
+â”‚  â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”  â”‚
+â”‚  â”‚                    n8n-validation-expert                           â”‚  â”‚
+â”‚  â”‚  â€¢ Interpretar erros de validaÃ§Ã£o â€¢ Corrigir problemas comuns      â”‚  â”‚
+â”‚  â”‚  â€¢ Perfis de validaÃ§Ã£o â€¢ Checklist prÃ©-implantaÃ§Ã£o                 â”‚  â”‚
+â”‚  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜  â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                                    â”‚
+                                    â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                         FERRAMENTAS n8n MCP                              â”‚
+â”‚                                                                          â”‚
+â”‚  Descoberta            Gerenc. Workflow        ValidaÃ§Ã£o                 â”‚
+â”‚  â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€     â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€     â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€       â”‚
+â”‚  â€¢ search_nodes        â€¢ n8n_create_workflow  â€¢ validate_workflow        â”‚
+â”‚  â€¢ get_node_info       â€¢ n8n_update_workflow  â€¢ validate_node_operation  â”‚
+â”‚  â€¢ list_nodes          â€¢ n8n_get_workflow     â€¢ validate_expressions     â”‚
+â”‚  â€¢ list_ai_tools       â€¢ n8n_list_workflows   â€¢ validate_connections     â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+```
+
+---
+
+## As 8 Skills
+
+| Skill | PropÃ³sito | DecisÃ£o Chave |
+|-------|-----------|---------------|
+| **n8n-workflow-architect** | Planejamento estratÃ©gico | "Devo usar n8n ou Python?" |
+| **n8n-workflow-patterns** | PadrÃµes de implementaÃ§Ã£o | "Qual Ã© o padrÃ£o certo para webhooks?" |
+| **n8n-node-configuration** | ConfiguraÃ§Ã£o de nodes | "Quais campos esse node precisa?" |
+| **n8n-mcp-tools-expert** | OrientaÃ§Ã£o MCP | "Qual ferramenta MCP devo usar?" |
+| **n8n-code-javascript** | Nodes Code em JS | "Como acesso $json no Code?" |
+| **n8n-code-python** | Nodes Code em Python | "Quais mÃ³dulos Python estÃ£o disponÃ­veis?" |
+| **n8n-expression-syntax** | Debug de expressÃµes | "Por que minha expressÃ£o nÃ£o funciona?" |
+| **n8n-validation-expert** | CorreÃ§Ã£o de erros | "O que esse erro de validaÃ§Ã£o significa?" |
+
+### Detalhes das Skills
+
+<details>
+<summary><strong>n8n-workflow-architect</strong> - Planejamento estratÃ©gico</summary>
+
+**Quando o Claude usa isso:**
+- Iniciando um novo projeto de automaÃ§Ã£o
+- Decidindo entre n8n, Python ou hÃ­brido
+- Avaliando prontidÃ£o para produÃ§Ã£o
+
+**Arquivos principais:**
+- `SKILL.md` - Framework de decisÃ£o
+- `tool-selection-matrix.md` - CritÃ©rios n8n vs Python (OAuth, volume, complexidade)
+- `business-stack-analysis.md` - Guias de compatibilidade SaaS
+- `production-readiness.md` - Checklist prÃ©-lanÃ§amento
+
+**CritÃ©rios de decisÃ£o:**
+| Use n8n quando | Use Python quando |
+|----------------|-------------------|
+| OAuth necessÃ¡rio | >5.000 registros |
+| Mantenedores nÃ£o-tÃ©cnicos | >20MB arquivos |
+| Esperas de vÃ¡rios dias | Algoritmos complexos |
+| IntegraÃ§Ãµes padrÃ£o | IA de ponta |
+
+</details>
+
+<details>
+<summary><strong>n8n-workflow-patterns</strong> - PadrÃµes de implementaÃ§Ã£o</summary>
+
+**Os 5 padrÃµes principais:**
+
+1. **Processamento de Webhook** - Receber HTTP â†’ Processar â†’ Responder
+   - Webhooks do Stripe, envios de formulÃ¡rio, integraÃ§Ãµes de chat
+
+2. **IntegraÃ§Ã£o de API HTTP** - Buscar APIs â†’ Transformar â†’ Armazenar
+   - SincronizaÃ§Ã£o de dados, agregaÃ§Ã£o de API, enriquecimento
+
+3. **OperaÃ§Ãµes de Banco de Dados** - Ler/Escrever/Sincronizar bancos
+   - ETL, migraÃ§Ãµes, backups
+
+4. **Workflow de Agente IA** - IA com ferramentas e memÃ³ria
+   - Chatbots, geraÃ§Ã£o de conteÃºdo, anÃ¡lise
+
+5. **Tarefas Agendadas** - AutomaÃ§Ã£o recorrente
+   - RelatÃ³rios diÃ¡rios, limpeza, monitoramento
+
+</details>
+
+<details>
+<summary><strong>n8n-node-configuration</strong> - ConfiguraÃ§Ã£o de nodes</summary>
+
+**Conceitos principais:**
+- **Consciente de operaÃ§Ã£o:** OperaÃ§Ãµes diferentes precisam de campos diferentes
+- **DependÃªncias de propriedade:** Campos mostram/escondem baseado em outros valores
+- **Descoberta progressiva:** Comece com essenciais, adicione complexidade
+
+**Exemplo:** Node do Slack
+```javascript
+// Para operation='post' (enviar mensagem)
+{ resource: "message", operation: "post", channel: "#general", text: "Hello!" }
+
+// Para operation='update' (editar mensagem) - campos diferentes!
+{ resource: "message", operation: "update", messageId: "123", text: "Updated!" }
+```
+
+</details>
+
+<details>
+<summary><strong>n8n-code-javascript</strong> - Nodes Code em JS</summary>
+
+**Sintaxe principal:**
+```javascript
+// Acessar dados de entrada
+const items = $input.all();
+const firstItem = $json;
+
+// Referenciar outros nodes
+const prevData = $node["Previous Node"].json;
+
+// RequisiÃ§Ãµes HTTP (embutido)
+const response = await $helpers.httpRequest({
+  method: 'GET',
+  url: 'https://api.example.com/data'
+});
+
+// DateTime (Luxon)
+const now = DateTime.now();
+const formatted = now.toFormat('yyyy-MM-dd');
+```
+
+</details>
+
+<details>
+<summary><strong>n8n-expression-syntax</strong> - Debug de expressÃµes</summary>
+
+**Erros comuns:**
+
+| Errado | Correto | Por quÃª |
+|--------|---------|---------|
+| `{{ $json.email }}` | `{{ $json.body.email }}` | Dados do webhook estÃ£o em `.body` |
+| `{{ json.field }}` | `{{ $json.field }}` | Faltando prefixo `$` |
+| `$json.field` | `{{ $json.field }}` | Faltando `{{ }}` |
+
+**PadrÃµes Ãºteis:**
+```javascript
+// Condicional
+{{ $json.status === 'active' ? 'Sim' : 'NÃ£o' }}
+
+// Valor padrÃ£o
+{{ $json.name || 'Desconhecido' }}
+
+// Referenciar outros nodes
+{{ $node["Extract Data"].json.email }}
+```
+
+</details>
+
+---
+
+## Estrutura de Arquivos
+
+```
+n8n-ps/
+â”œâ”€â”€ README.md                          # Este arquivo (portuguÃªs)
+â”œâ”€â”€ README-EN.md                       # VersÃ£o em inglÃªs
+â”œâ”€â”€ INSTALL.md                         # Guia de instalaÃ§Ã£o (portuguÃªs)
+â”œâ”€â”€ INSTALL-EN.md                      # Guia de instalaÃ§Ã£o (inglÃªs)
+â”œâ”€â”€ docs-pt/                           # DocumentaÃ§Ã£o detalhada em portuguÃªs
+â”œâ”€â”€ examples/
+â”‚   â””â”€â”€ README.md                      # Prompts de exemplo
+â””â”€â”€ .claude/
+    â”œâ”€â”€ CLAUDE.md                      # ConfiguraÃ§Ã£o principal
+    â””â”€â”€ skills/
+        â”œâ”€â”€ n8n-workflow-architect/    # 4 arquivos - Planejamento
+        â”œâ”€â”€ n8n-workflow-patterns/     # 6 arquivos - PadrÃµes
+        â”œâ”€â”€ n8n-node-configuration/    # 4 arquivos - Config. de nodes
+        â”œâ”€â”€ n8n-mcp-tools-expert/      # 5 arquivos - OrientaÃ§Ã£o MCP
+        â”œâ”€â”€ n8n-code-javascript/       # 6 arquivos - CÃ³digo JS
+        â”œâ”€â”€ n8n-code-python/           # 6 arquivos - CÃ³digo Python
+        â”œâ”€â”€ n8n-expression-syntax/     # 4 arquivos - ExpressÃµes
+        â””â”€â”€ n8n-validation-expert/     # 4 arquivos - ValidaÃ§Ã£o
+```
+
+**Total:** 46 arquivos, ~25.000 palavras de expertise n8n
+
+---
+
+## Perguntas Frequentes
+
+### Preciso do n8n Cloud ou posso usar self-hosted?
+
+Ambos funcionam. Apenas mude `N8N_API_URL` para a URL da sua instÃ¢ncia.
+
+### Isso funciona com a EdiÃ§Ã£o Community do n8n?
+
+Sim! VocÃª precisa ter acesso Ã  API habilitado. Nas variÃ¡veis de ambiente do seu n8n:
+```
+N8N_PUBLIC_API_ENABLED=true
+```
+
+### O Claude pode ativar workflows?
+
+NÃ£o. A API do n8n nÃ£o suporta ativaÃ§Ã£o. O Claude vai criar o workflow e dizer para vocÃª ativÃ¡-lo na UI.
+
+### E se o Claude cometer um erro?
+
+Workflows sÃ£o criados inativos. Sempre revise antes de ativar. O Claude tambÃ©m valida antes de criar.
+
+### Como isso Ã© diferente dos recursos de IA do n8n?
+
+O n8n tem IA embutida para gerar workflows. O n8n Powerhouse dÃ¡ ao Claude **expertise profunda** mais **acesso direto Ã  API**. O Claude pode:
+- Tomar decisÃµes de arquitetura (n8n vs Python)
+- Aplicar padrÃµes de produÃ§Ã£o (idempotÃªncia, tratamento de erros)
+- Debugar problemas complexos
+- Criar workflows que seguem boas prÃ¡ticas
+
+### Posso adicionar minhas prÃ³prias skills?
+
+Sim! Adicione arquivos `.md` em `.claude/skills/nome-da-sua-skill/` e atualize `.claude/CLAUDE.md`.
+
+---
+
+## ReferÃªncia das Ferramentas MCP
+
+<details>
+<summary><strong>Ferramentas de Descoberta</strong></summary>
+
+```bash
+search_nodes          # Encontrar nodes por palavra-chave
+get_node_essentials   # VisÃ£o rÃ¡pida do node (comece aqui)
+get_node_info         # DocumentaÃ§Ã£o completa
+list_nodes            # Listar por categoria/pacote
+list_ai_tools         # Nodes com capacidade de IA
+```
+
+</details>
+
+<details>
+<summary><strong>Gerenciamento de Workflow</strong></summary>
+
+```bash
+n8n_create_workflow          # Criar novo workflow
+n8n_get_workflow             # Obter por ID
+n8n_update_partial_workflow  # AtualizaÃ§Ãµes incrementais (add/remove nodes)
+n8n_update_full_workflow     # SubstituiÃ§Ã£o completa
+n8n_list_workflows           # Listar todos workflows
+n8n_delete_workflow          # Deletar workflow
+```
+
+</details>
+
+<details>
+<summary><strong>Ferramentas de ValidaÃ§Ã£o</strong></summary>
+
+```bash
+validate_workflow             # ValidaÃ§Ã£o completa do workflow
+validate_node_operation       # ValidaÃ§Ã£o de node Ãºnico
+validate_workflow_connections # Verificar apenas conexÃµes
+validate_workflow_expressions # Verificar apenas expressÃµes
+n8n_validate_workflow         # Validar por ID do workflow
+```
+
+</details>
+
+<details>
+<summary><strong>Ferramentas de Template</strong></summary>
+
+```bash
+search_templates       # Pesquisar por palavra-chave
+list_node_templates    # Encontrar templates usando nodes especÃ­ficos
+get_template           # Obter JSON completo do workflow
+get_templates_for_task # Templates curados por tipo de tarefa
+```
+
+</details>
+
+<details>
+<summary><strong>Ferramentas de ExecuÃ§Ã£o</strong></summary>
+
+```bash
+n8n_trigger_webhook_workflow  # Disparar via webhook
+n8n_list_executions           # HistÃ³rico de execuÃ§Ãµes
+n8n_get_execution             # Detalhes da execuÃ§Ã£o
+n8n_health_check              # Verificar conectividade do n8n
+```
+
+</details>
+
+---
+
+## ProntidÃ£o para ProduÃ§Ã£o
+
+As skills incluem orientaÃ§Ã£o de produÃ§Ã£o para:
+
+| Ãrea | Cobertura |
+|------|-----------|
+| **Observabilidade** | Workflows de erro, log de execuÃ§Ã£o, health checks |
+| **IdempotÃªncia** | Tratamento de duplicatas, verificar-antes-criar, chaves de idempotÃªncia |
+| **GestÃ£o de Custos** | Custos de API de IA, cache, seleÃ§Ã£o de modelo |
+| **Controle Operacional** | Kill switches, filas de aprovaÃ§Ã£o, trilhas de auditoria |
+| **SeguranÃ§a** | Assinaturas de webhook, tratamento de credenciais, validaÃ§Ã£o de entrada |
+
+Veja [production-readiness.md](.claude/skills/n8n-workflow-architect/production-readiness.md) para o checklist completo.
+
+---
+
+## Contribuindo
+
+1. FaÃ§a fork deste repositÃ³rio
+2. Adicione/edite arquivos em `.claude/skills/`
+3. Atualize descriÃ§Ãµes de skills em `.claude/CLAUDE.md`
+4. Envie um PR
+
+### Estrutura de Skill
+
+Cada skill precisa de:
+- `SKILL.md` - Arquivo principal (carregado quando a skill Ã© invocada)
+- `README.md` - VisÃ£o geral legÃ­vel por humanos
+- Arquivos `.md` adicionais para tÃ³picos detalhados
+
+---
+
+## Links
+
+- [DocumentaÃ§Ã£o do n8n](https://docs.n8n.io/)
+- [n8n MCP no npm](https://www.npmjs.com/package/n8n-mcp)
+- [Claude Code](https://claude.ai/claude-code)
+- [DocumentaÃ§Ã£o de Skills do Claude Code](https://docs.anthropic.com/en/docs/claude-code/skills)
+- [Model Context Protocol](https://modelcontextprotocol.io/)
+
+---
+
+## LicenÃ§a
+
+LicenÃ§a MIT - Use livremente para seus projetos de automaÃ§Ã£o.
+
+---
+
+<p align="center">
+  <strong>ConstruÃ­do com Claude Code + n8n MCP</strong><br>
+  <em>Transforme conversas em automaÃ§Ã£o pronta para produÃ§Ã£o</em>
+</p>
+
+---
+
+<div align="center">
+  <img src="capa/logo.svg" alt="Arckhé AI" height="32" />
+  <p><strong>Arckhé AI</strong></p>
+</div>
