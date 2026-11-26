@@ -11,7 +11,7 @@
 ## Passo 1: Clonar Este Repositório
 
 ```bash
-git clone https://github.com/inematds/n8n-ps.git
+git clone https://github.com/linnoff88-dev/n8n-ps.git
 cd n8n-ps
 ```
 
