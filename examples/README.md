@@ -1,6 +1,6 @@
 # Exemplos de Workflows
 
-Estes são exemplos de workflows que você pode pedir ao Claude para construir. Basta descrever o que você precisa e Claude usará as skills e MCP para criá-los.
+Estes sêo exemplos de workflows que você pode pedir ao Claude para construir. Basta descrever o que você precisa e Claude usará as skills e MCP para criá-los.
 
 ---
 
@@ -10,17 +10,17 @@ Estes são exemplos de workflows que você pode pedir ao Claude para construir. 
 
 ```
 Construa um webhook que receba envios de formulário, valide o email,
-armazene em um banco de dados e envie uma notificação no Slack.
+armazene em um banco de dados e envie uma notificaçêo no Slack.
 ```
 
-### Integração de API
+### Integraçêo de API
 
 ```
 Crie um workflow que busque dados de uma API REST a cada hora,
 transforme a resposta e atualize uma planilha do Google Sheets.
 ```
 
-### Sincronização de Banco de Dados
+### Sincronizaçêo de Banco de Dados
 
 ```
 Sincronize novos clientes do Shopify para meu banco Postgres diariamente.
@@ -30,7 +30,7 @@ Trate duplicatas verificando o email.
 ### Agente de IA
 
 ```
-Construa um chatbot que pode pesquisar nossa documentação e responder perguntas.
+Construa um chatbot que pode pesquisar nossa documentaçêo e responder perguntas.
 Use OpenAI para a IA e webhook para receber mensagens.
 ```
 
@@ -54,11 +54,11 @@ Devo usar n8n ou Python para [seu caso de uso]?
 
 Claude usará a skill `n8n-workflow-architect` para analisar seus requisitos.
 
-### Obtenha Orientação de Padrões
+### Obtenha Orientaçêo de Padrões
 
 Peça recomendações de padrões:
 ```
-Qual o melhor padrão para processar webhooks do Stripe?
+Qual o melhor padrêo para processar webhooks do Stripe?
 ```
 
 Claude consultará `n8n-workflow-patterns` para abordagens comprovadas.
@@ -70,7 +70,7 @@ Sempre peça ao Claude para validar:
 Valide o workflow que você acabou de criar.
 ```
 
-Claude usará as ferramentas de validação MCP para verificar problemas.
+Claude usará as ferramentas de validaçêo MCP para verificar problemas.
 
 ---
 

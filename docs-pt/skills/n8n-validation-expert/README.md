@@ -1,33 +1,33 @@
-# Especialista em Validação n8n
+# Especialista em Validaçêo n8n
 
-Interprete erros de validação e guie a correção.
+Interprete erros de validaçêo e guie a correçêo.
 
 ---
 
 ## Propósito
 
-Esta skill ajuda a interpretar erros de validação, entender avisos, corrigir problemas comuns e usar perfis de validação apropriados antes de implantar workflows.
+Esta skill ajuda a interpretar erros de validaçêo, entender avisos, corrigir problemas comuns e usar perfis de validaçêo apropriados antes de implantar workflows.
 
 ---
 
 ## Quando Usar
 
-- Encontrando erros de validação
+- Encontrando erros de validaçêo
 - Antes de implantar workflows
-- Entendendo avisos de validação
+- Entendendo avisos de validaçêo
 - Corrigindo problemas de estrutura de operadores
 
 ---
 
-## Perfis de Validação
+## Perfis de Validaçêo
 
-O n8n MCP oferece diferentes perfis de validação:
+O n8n MCP oferece diferentes perfis de validaçêo:
 
-| Perfil | Descrição | Uso |
+| Perfil | Descriçêo | Uso |
 |--------|-----------|-----|
 | `minimal` | Apenas campos obrigatórios | Desenvolvimento rápido |
 | `runtime` | O que o n8n realmente verifica | Pré-deploy |
-| `ai-friendly` | Balanceado para uso com IA | Padrão recomendado |
+| `ai-friendly` | Balanceado para uso com IA | Padrêo recomendado |
 | `strict` | Tudo validado | Workflows críticos |
 
 ### Usando Perfis
@@ -52,7 +52,7 @@ Missing required field: channel
 
 **Causa**: Node Slack sem canal especificado
 
-**Solução**:
+**Soluçêo**:
 ```javascript
 {
   resource: "message",
@@ -71,7 +71,7 @@ Invalid type: expected string, got number
 
 **Causa**: Passando número onde string é esperada
 
-**Solução**:
+**Soluçêo**:
 ```javascript
 // ERRADO
 { limit: "100" }
@@ -80,7 +80,7 @@ Invalid type: expected string, got number
 { limit: 100 }
 ```
 
-### 3. Conexão Inválida
+### 3. Conexêo Inválida
 
 **Erro**:
 ```
@@ -89,29 +89,29 @@ Invalid connection: Node "X" output cannot connect to Node "Y" input
 
 **Causa**: Tentando conectar tipos incompatíveis
 
-**Solução**: Verifique tipos de porta (main vs ai_tool, etc.)
+**Soluçêo**: Verifique tipos de porta (main vs ai_tool, etc.)
 
-### 4. Node Não Encontrado
+### 4. Node Nêo Encontrado
 
 **Erro**:
 ```
 Unknown node type: nodes-base.nonexistent
 ```
 
-**Causa**: Tipo de node incorreto ou não existe
+**Causa**: Tipo de node incorreto ou nêo existe
 
-**Solução**: Use `search_nodes` para encontrar nome correto
+**Soluçêo**: Use `search_nodes` para encontrar nome correto
 
-### 5. Credencial Não Configurada
+### 5. Credencial Nêo Configurada
 
 **Erro**:
 ```
 Credentials not configured for node: Slack
 ```
 
-**Causa**: Node requer credenciais não especificadas
+**Causa**: Node requer credenciais nêo especificadas
 
-**Solução**: Adicionar referência de credencial:
+**Soluçêo**: Adicionar referência de credencial:
 ```javascript
 {
   credentials: {
@@ -122,7 +122,7 @@ Credentials not configured for node: Slack
 
 ---
 
-## Erros de Expressão
+## Erros de Expressêo
 
 ### Sintaxe Inválida
 
@@ -133,7 +133,7 @@ Invalid expression syntax: {{ $json.email }
 
 **Causa**: Faltando `}}` de fechamento
 
-**Solução**:
+**Soluçêo**:
 ```javascript
 // ERRADO
 {{ $json.email }
@@ -142,16 +142,16 @@ Invalid expression syntax: {{ $json.email }
 {{ $json.email }}
 ```
 
-### Variável Não Definida
+### Variável Nêo Definida
 
 **Erro**:
 ```
 Cannot read property 'email' of undefined
 ```
 
-**Causa**: Acessando propriedade de objeto que não existe
+**Causa**: Acessando propriedade de objeto que nêo existe
 
-**Solução**:
+**Soluçêo**:
 ```javascript
 // ERRADO
 {{ $json.user.email }}
@@ -161,44 +161,44 @@ Cannot read property 'email' of undefined
 {{ $json.user?.email || 'N/A' }}
 ```
 
-### Node Referenciado Não Existe
+### Node Referenciado Nêo Existe
 
 **Erro**:
 ```
 Node "Webhook" not found
 ```
 
-**Causa**: Referenciando node que não existe no workflow
+**Causa**: Referenciando node que nêo existe no workflow
 
-**Solução**: Verificar nome exato do node (case-sensitive)
+**Soluçêo**: Verificar nome exato do node (case-sensitive)
 
 ---
 
 ## Falsos Positivos
 
-Alguns erros de validação podem ser falsos positivos:
+Alguns erros de validaçêo podem ser falsos positivos:
 
 ### Credenciais
 
-Validação pode alertar sobre credenciais faltando, mas:
-- Credenciais são gerenciadas na UI do n8n
-- IDs de credencial podem não estar disponíveis via MCP
-- **Ação**: Ignorar se credenciais serão configuradas na UI
+Validaçêo pode alertar sobre credenciais faltando, mas:
+- Credenciais sêo gerenciadas na UI do n8n
+- IDs de credencial podem nêo estar disponíveis via MCP
+- **Açêo**: Ignorar se credenciais serêo configuradas na UI
 
 ### Campos Opcionais
 
-Alguns campos são opcionais mas podem aparecer como "recomendados":
-- **Ação**: Avaliar se são realmente necessários para seu caso
+Alguns campos sêo opcionais mas podem aparecer como "recomendados":
+- **Açêo**: Avaliar se sêo realmente necessários para seu caso
 
 ### Expressões Dinâmicas
 
 Expressões como `{{ $json.field }}` podem parecer inválidas:
-- Validador não consegue avaliar em tempo de build
-- **Ação**: Ignorar se expressão está correta
+- Validador nêo consegue avaliar em tempo de build
+- **Açêo**: Ignorar se expressêo está correta
 
 ---
 
-## Checklist de Validação
+## Checklist de Validaçêo
 
 ### Antes de Criar Workflow
 
@@ -224,7 +224,7 @@ Expressões como `{{ $json.field }}` podem parecer inválidas:
 
 ---
 
-## Processo de Correção
+## Processo de Correçêo
 
 ### 1. Identificar o Erro
 
@@ -239,7 +239,7 @@ console.log(result.errors);
 - Qual campo?
 - Qual valor atual?
 
-### 3. Aplicar Correção
+### 3. Aplicar Correçêo
 
 ```javascript
 n8n_update_partial_workflow({
@@ -263,7 +263,7 @@ validate_workflow({workflow: updatedWorkflow})
 
 ---
 
-## Ferramentas de Validação
+## Ferramentas de Validaçêo
 
 ### validate_workflow
 
@@ -308,9 +308,9 @@ validate_workflow_expressions({
 
 ### Erro Persistente
 
-1. Verifique documentação do node com `get_node_info`
+1. Verifique documentaçêo do node com `get_node_info`
 2. Compare com template funcional via `search_templates`
-3. Simplifique configuração ao mínimo necessário
+3. Simplifique configuraçêo ao mínimo necessário
 
 ### Muitos Erros
 
@@ -318,17 +318,17 @@ validate_workflow_expressions({
 2. Valide nodes individualmente
 3. Reconstrua workflow gradualmente
 
-### Erro Não Faz Sentido
+### Erro Nêo Faz Sentido
 
 1. Pode ser falso positivo
-2. Verifique se perfil de validação está apropriado
+2. Verifique se perfil de validaçêo está apropriado
 3. Teste o workflow mesmo assim (n8n pode aceitar)
 
 ---
 
-## Integração com Outras Skills
+## Integraçêo com Outras Skills
 
-- **n8n MCP Tools Expert** - Ferramentas de validação
-- **n8n Node Configuration** - Configuração correta de nodes
-- **n8n Expression Syntax** - Corrigir erros de expressão
+- **n8n MCP Tools Expert** - Ferramentas de validaçêo
+- **n8n Node Configuration** - Configuraçêo correta de nodes
+- **n8n Expression Syntax** - Corrigir erros de expressêo
 - **n8n Workflow Patterns** - Estruturas válidas de workflow

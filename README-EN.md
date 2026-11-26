@@ -6,7 +6,7 @@
 [![n8n](https://img.shields.io/badge/n8n-Automation-orange)](https://n8n.io)
 [![Claude Code](https://img.shields.io/badge/Claude-Code-blue)](https://claude.ai/claude-code)
 
-> 🇧🇷 [Versão em Português](README.md)
+> 🇧🇷 [Versêo em Português](README.md)
 
 ---
 

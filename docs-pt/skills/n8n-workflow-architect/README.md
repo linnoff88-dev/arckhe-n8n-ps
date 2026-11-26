@@ -1,35 +1,35 @@
 # n8n Workflow Architect
 
-Consultor estratégico de arquitetura de automação baseado no Protocolo IAA (Intelligent Automation Architect).
+Consultor estratégico de arquitetura de automaçêo baseado no Protocolo IAA (Intelligent Automation Architect).
 
 ## Propósito
 
-Esta skill ajuda usuários a tomar decisões informadas sobre arquitetura de automação **antes** de construir. Ela responde às perguntas fundamentais:
+Esta skill ajuda usuários a tomar decisões informadas sobre arquitetura de automaçêo **antes** de construir. Ela responde às perguntas fundamentais:
 
 - Devo usar n8n, Python ou uma abordagem híbrida?
 - Dado meu stack de negócios, qual é o caminho de menor resistência?
-- Como faço para deixar isso pronto para produção?
+- Como faço para deixar isso pronto para produçêo?
 
 ## Quando o Claude Deve Usar Esta Skill
 
 Invoque esta skill quando usuários:
 
-1. **Planejam um projeto de automação** - "Preciso automatizar..."
+1. **Planejam um projeto de automaçêo** - "Preciso automatizar..."
 2. **Descrevem seu stack técnico** - "Eu uso Shopify, Zoho, HubSpot..."
 3. **Fazem perguntas de arquitetura** - "Devo usar n8n ou Python?"
 4. **Avaliam viabilidade** - "Posso automatizar X?"
-5. **Precisam de orientação para produção** - "Como faço isso confiável?"
+5. **Precisam de orientaçêo para produçêo** - "Como faço isso confiável?"
 
 ## Conteúdo
 
 | Arquivo | Propósito |
 |---------|-----------|
-| [SKILL.md](SKILL.md) | Ponto de entrada principal - framework de decisão, referências rápidas |
-| [tool-selection-matrix.md](tool-selection-matrix.md) | Critérios detalhados de decisão n8n vs Python |
-| [business-stack-analysis.md](business-stack-analysis.md) | Plataformas SaaS comuns e padrões de integração |
+| [SKILL.md](SKILL.md) | Ponto de entrada principal - framework de decisêo, referências rápidas |
+| [tool-selection-matrix.md](tool-selection-matrix.md) | Critérios detalhados de decisêo n8n vs Python |
+| [business-stack-analysis.md](business-stack-analysis.md) | Plataformas SaaS comuns e padrões de integraçêo |
 | [production-readiness.md](production-readiness.md) | Checklist pré-lançamento e preocupações operacionais |
 
-## Integração com Outras Skills
+## Integraçêo com Outras Skills
 
 Esta skill serve como **camada de planejamento** que coordena com:
 
@@ -70,33 +70,33 @@ javascript         python              syntax
 
 > **Viabilidade sobre Possibilidade**
 
-A distância entre o que é tecnicamente possível e o que é realmente viável em produção é enorme. Construa sistemas que:
+A distância entre o que é tecnicamente possível e o que é realmente viável em produçêo é enorme. Construa sistemas que:
 
-- Não quebram às 3 da manhã de um sábado
-- Não requerem um PhD para manter
+- Nêo quebram às 3 da manhê de um sábado
+- Nêo requerem um PhD para manter
 - Entregam valor real para o negócio
 
-### Regras Rápidas de Decisão
+### Regras Rápidas de Decisêo
 
 | Use n8n Quando | Use Python Quando |
 |----------------|-------------------|
-| Autenticação OAuth necessária | Processando > 5.000 registros |
-| Mantenedores não-técnicos | Arquivos > 20MB |
+| Autenticaçêo OAuth necessária | Processando > 5.000 registros |
+| Mantenedores nêo-técnicos | Arquivos > 20MB |
 | Processos de espera de vários dias | Algoritmos complexos |
-| Integrações SaaS padrão | IA/ML de ponta |
+| Integrações SaaS padrêo | IA/ML de ponta |
 
 ### Arquitetura Híbrida
 
 Para sistemas complexos, combine ambos:
 
 ```
-Camada n8n (Orquestração)
+Camada n8n (Orquestraçêo)
 ├── Webhooks, triggers, OAuth
 ├── Integrações voltadas ao usuário
-└── Coordenação de fluxo
+└── Coordenaçêo de fluxo
 
 Camada Python (Processamento)
-├── Computação pesada
+├── Computaçêo pesada
 ├── Lógica complexa
 └── Operações de IA/ML
 ```
@@ -110,32 +110,32 @@ Camada Python (Processamento)
 **Resposta do Architect**:
 - Todos os serviços têm nodes nativos no n8n
 - OAuth gerenciado automaticamente
-- Padrões de webhook padrão se aplicam
-- **Recomendação**: n8n puro
+- Padrões de webhook padrêo se aplicam
+- **Recomendaçêo**: n8n puro
 - **Passa para**: `n8n-workflow-patterns` → webhook_processing
 
-### Exemplo 2: Pontuação de Leads com IA
+### Exemplo 2: Pontuaçêo de Leads com IA
 
 **Usuário**: "Preciso que IA pontue leads do Typeform e atualize o HubSpot"
 
 **Resposta do Architect**:
 - Typeform/HubSpot via n8n (OAuth)
-- Lógica de pontuação com IA é complexa
-- **Recomendação**: Híbrido
+- Lógica de pontuaçêo com IA é complexa
+- **Recomendaçêo**: Híbrido
 - n8n para integrações, node Code para lógica de IA
 - **Passa para**: `n8n-workflow-patterns` → ai_agent_workflow
 
 ### Exemplo 3: Pipeline de Dados Grande
 
-**Usuário**: "Sincronização diária de 50.000 registros do Postgres para BigQuery"
+**Usuário**: "Sincronizaçêo diária de 50.000 registros do Postgres para BigQuery"
 
 **Resposta do Architect**:
 - Volume excede limites de memória do n8n
-- **Recomendação**: Python com trigger n8n
+- **Recomendaçêo**: Python com trigger n8n
 - n8n para agendamento e notificações
 - Python para processamento em lote
 - **Aviso**: Rate limits, resumabilidade necessária
 
 ## Créditos
 
-Baseado no Protocolo IAA (Intelligent Automation Architect) - um guia abrangente para construir sistemas de automação que sobrevivem em produção.
+Baseado no Protocolo IAA (Intelligent Automation Architect) - um guia abrangente para construir sistemas de automaçêo que sobrevivem em produçêo.

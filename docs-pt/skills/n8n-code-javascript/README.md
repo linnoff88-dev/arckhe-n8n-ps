@@ -6,7 +6,7 @@ Escreva JavaScript em nodes Code do n8n.
 
 ## Propósito
 
-Esta skill ajuda a escrever código JavaScript correto em nodes Code do n8n, usando a sintaxe específica do n8n para acesso a dados, requisições HTTP e manipulação de datas.
+Esta skill ajuda a escrever código JavaScript correto em nodes Code do n8n, usando a sintaxe específica do n8n para acesso a dados, requisições HTTP e manipulaçêo de datas.
 
 ---
 
@@ -51,10 +51,10 @@ const email = $node["Webhook"].json.body.email;
 const allItems = $node["HTTP Request"].all();
 ```
 
-### Dados de Execução
+### Dados de Execuçêo
 
 ```javascript
-// ID da execução atual
+// ID da execuçêo atual
 const executionId = $executionId;
 
 // ID do workflow
@@ -76,7 +76,7 @@ const now = $now;
 ```javascript
 return {
   json: {
-    name: "João",
+    name: "Joêo",
     email: "joao@exemplo.com"
   }
 };
@@ -154,7 +154,7 @@ try {
 
 ---
 
-## Manipulação de Datas (Luxon)
+## Manipulaçêo de Datas (Luxon)
 
 O n8n usa Luxon para datas. `DateTime` está disponível globalmente.
 
@@ -178,7 +178,7 @@ const date2 = DateTime.fromFormat('15/01/2024', 'dd/MM/yyyy');
 const date3 = DateTime.fromMillis(1705315800000);
 ```
 
-### Formatação
+### Formataçêo
 
 ```javascript
 const date = DateTime.now();
@@ -201,7 +201,7 @@ const tomorrow = now.plus({ days: 1 });
 const lastWeek = now.minus({ weeks: 1 });
 const nextMonth = now.plus({ months: 1 });
 
-// Comparação
+// Comparaçêo
 const isAfter = now > someDate;
 const diff = now.diff(someDate, 'days').days;
 
@@ -272,7 +272,7 @@ const grouped = items.reduce((acc, item) => {
 return { json: grouped };
 ```
 
-### Validação de Dados
+### Validaçêo de Dados
 
 ```javascript
 const data = $json;
@@ -302,14 +302,14 @@ const email = email;
 const email = $json.email;
 ```
 
-### ❌ Não retornando formato correto
+### ❌ Nêo retornando formato correto
 
 ```javascript
 // ERRADO - retornando objeto simples
-return { name: "João" };
+return { name: "Joêo" };
 
 // CORRETO - retornando com json wrapper
-return { json: { name: "João" } };
+return { json: { name: "Joêo" } };
 ```
 
 ### ❌ Async sem await
@@ -325,7 +325,7 @@ const response = await $helpers.httpRequest({...});
 ### ❌ Acessando node inexistente
 
 ```javascript
-// Causa erro se node "Webhook" não existir
+// Causa erro se node "Webhook" nêo existir
 const data = $node["Webhook"].json;
 
 // Mais seguro
@@ -335,9 +335,9 @@ const data = webhookNode ? webhookNode.json : null;
 
 ---
 
-## Modo de Execução
+## Modo de Execuçêo
 
-### Run Once for All Items (Padrão)
+### Run Once for All Items (Padrêo)
 
 Código executa uma vez com acesso a todos os itens via `$input.all()`.
 
@@ -353,7 +353,7 @@ Código executa para cada item separadamente. `$json` contém o item atual.
 // Gerar UUID
 const id = $helpers.generateUuid();
 
-// Pausar execução (ms)
+// Pausar execuçêo (ms)
 await $helpers.sleep(1000);
 
 // Acessar credenciais
@@ -366,7 +366,7 @@ data.counter = (data.counter || 0) + 1;
 
 ---
 
-## Integração com Outras Skills
+## Integraçêo com Outras Skills
 
 - **n8n Expression Syntax** - Expressões em campos de parâmetros
 - **n8n Node Configuration** - Quando usar Code vs outros nodes

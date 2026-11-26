@@ -6,7 +6,7 @@ Valide a sintaxe de expressões n8n e corrija erros comuns.
 
 ## Propósito
 
-Esta skill ajuda a escrever expressões n8n corretas, usando a sintaxe `{{ }}`, acessando variáveis como `$json`, `$node`, e resolvendo erros comuns de expressão.
+Esta skill ajuda a escrever expressões n8n corretas, usando a sintaxe `{{ }}`, acessando variáveis como `$json`, `$node`, e resolvendo erros comuns de expressêo.
 
 ---
 
@@ -15,7 +15,7 @@ Esta skill ajuda a escrever expressões n8n corretas, usando a sintaxe `{{ }}`, 
 - Escrevendo expressões n8n
 - Usando sintaxe `{{ }}`
 - Acessando variáveis `$json`, `$node`
-- Resolvendo erros de expressão
+- Resolvendo erros de expressêo
 - Trabalhando com dados de webhook
 
 ---
@@ -24,10 +24,10 @@ Esta skill ajuda a escrever expressões n8n corretas, usando a sintaxe `{{ }}`, 
 
 ### Formato
 
-Expressões n8n são envolvidas em `{{ }}`:
+Expressões n8n sêo envolvidas em `{{ }}`:
 
 ```javascript
-{{ expressão_aqui }}
+{{ expressêo_aqui }}
 ```
 
 ### Exemplos Básicos
@@ -46,7 +46,7 @@ Expressões n8n são envolvidas em `{{ }}`:
 {{ $json.price * 1.1 }}
 
 // Condicionais
-{{ $json.status === 'active' ? 'Sim' : 'Não' }}
+{{ $json.status === 'active' ? 'Sim' : 'Nêo' }}
 ```
 
 ---
@@ -65,13 +65,13 @@ Expressões n8n são envolvidas em `{{ }}`:
 // Item de array
 {{ $json.items[0].id }}
 
-// Com valor padrão (se nulo/undefined)
+// Com valor padrêo (se nulo/undefined)
 {{ $json.name || 'Sem nome' }}
 ```
 
 ### Dados de Webhook
 
-**IMPORTANTE**: Dados de webhook estão aninhados em `.body`!
+**IMPORTANTE**: Dados de webhook estêo aninhados em `.body`!
 
 ```javascript
 // ❌ ERRADO
@@ -86,7 +86,7 @@ Estrutura completa do webhook:
 {{ $json.headers['content-type'] }}  // Headers
 {{ $json.params.id }}                 // Parâmetros de URL
 {{ $json.query.token }}               // Query string
-{{ $json.body.email }}                // Corpo da requisição
+{{ $json.body.email }}                // Corpo da requisiçêo
 ```
 
 ### Dados de Outros Nodes
@@ -101,10 +101,10 @@ Estrutura completa do webhook:
 {{ $node["Postgres"].json.name }}
 ```
 
-### Dados de Execução
+### Dados de Execuçêo
 
 ```javascript
-{{ $executionId }}                    // ID da execução
+{{ $executionId }}                    // ID da execuçêo
 {{ $workflow.id }}                    // ID do workflow
 {{ $workflow.name }}                  // Nome do workflow
 {{ $now }}                            // Timestamp atual (ISO)
@@ -118,7 +118,7 @@ Estrutura completa do webhook:
 ### Strings
 
 ```javascript
-// Concatenação
+// Concatenaçêo
 {{ $json.firstName + ' ' + $json.lastName }}
 
 // Template literal
@@ -142,7 +142,7 @@ Estrutura completa do webhook:
 
 ```javascript
 // Operações matemáticas
-{{ $json.price * 1.1 }}              // Multiplicação
+{{ $json.price * 1.1 }}              // Multiplicaçêo
 {{ $json.total + $json.shipping }}    // Soma
 {{ Math.round($json.price) }}         // Arredondamento
 {{ $json.price.toFixed(2) }}          // Decimal fixo
@@ -171,14 +171,14 @@ Estrutura completa do webhook:
 // Ternário simples
 {{ $json.active ? 'Ativo' : 'Inativo' }}
 
-// Com verificação de existência
+// Com verificaçêo de existência
 {{ $json.name ? $json.name : 'Anônimo' }}
 
 // Operador nullish coalescing
-{{ $json.name ?? 'Valor padrão' }}
+{{ $json.name ?? 'Valor padrêo' }}
 
 // Operador OR para valores falsy
-{{ $json.name || 'Valor padrão' }}
+{{ $json.name || 'Valor padrêo' }}
 
 // Múltiplas condições
 {{ $json.score > 90 ? 'A' : $json.score > 70 ? 'B' : 'C' }}
@@ -227,7 +227,7 @@ $json.email
 ### ❌ Dados de webhook sem .body
 
 ```javascript
-// ERRADO - dados estão em body!
+// ERRADO - dados estêo em body!
 {{ $json.email }}
 
 // CORRETO
@@ -251,7 +251,7 @@ $json.email
 // ERRADO - se user for undefined, erro!
 {{ $json.user.name }}
 
-// CORRETO - com verificação
+// CORRETO - com verificaçêo
 {{ $json.user?.name }}
 {{ $json.user ? $json.user.name : 'N/A' }}
 ```
@@ -273,20 +273,20 @@ Email: {{ $json.email }}
 
 ## Padrões Úteis
 
-### Valor Padrão Seguro
+### Valor Padrêo Seguro
 
 ```javascript
-{{ $json.nome || 'Não informado' }}
+{{ $json.nome || 'Nêo informado' }}
 {{ $json.preco ?? 0 }}
 ```
 
-### Verificação de Existência
+### Verificaçêo de Existência
 
 ```javascript
 {{ $json.items && $json.items.length > 0 ? 'Tem itens' : 'Vazio' }}
 ```
 
-### Formatação de Moeda
+### Formataçêo de Moeda
 
 ```javascript
 {{ 'R$ ' + $json.valor.toFixed(2).replace('.', ',') }}
@@ -322,7 +322,7 @@ Email: {{ $json.email }}
 
 ### Em Campos de Parâmetros
 
-Quando preencher campos de nodes, as expressões são avaliadas:
+Quando preencher campos de nodes, as expressões sêo avaliadas:
 
 ```javascript
 // Campo "Message" do Slack
@@ -332,7 +332,7 @@ Novo pedido de {{ $json.body.customer_name }} - Total: R$ {{ $json.body.total.to
 ### Em Condições (IF Node)
 
 ```javascript
-// Condição true/false
+// Condiçêo true/false
 {{ $json.valor > 1000 }}
 
 // Com múltiplas condições
@@ -365,7 +365,7 @@ return $input.all();
 
 2. Verifique a saída na aba "Output" do node anterior
 
-### Expressão Não Funciona
+### Expressêo Nêo Funciona
 
 1. Verifique se está dentro de `{{ }}`
 2. Verifique se usou `$` antes de `json`/`node`
@@ -374,8 +374,8 @@ return $input.all();
 
 ---
 
-## Integração com Outras Skills
+## Integraçêo com Outras Skills
 
 - **n8n Code JavaScript** - Para lógica mais complexa que expressões
-- **n8n Node Configuration** - Onde expressões são usadas
+- **n8n Node Configuration** - Onde expressões sêo usadas
 - **n8n Workflow Patterns** - Padrões que usam expressões

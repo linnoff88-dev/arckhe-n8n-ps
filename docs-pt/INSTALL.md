@@ -1,4 +1,4 @@
-# Guia de Instalação
+# Guia de Instalaçêo
 
 ## Pré-requisitos
 
@@ -57,7 +57,7 @@ N8N_API_URL=https://n8n.minhaempresa.com
 
 ---
 
-## Passo 4: Verificar a Instalação
+## Passo 4: Verificar a Instalaçêo
 
 Inicie o Claude Code no diretório do projeto:
 
@@ -74,7 +74,7 @@ O Claude deve listar as 8 skills do diretório `.claude/skills/`.
 
 ---
 
-## Passo 5: Testar Conexão MCP
+## Passo 5: Testar Conexêo MCP
 
 Pergunte ao Claude:
 ```
@@ -85,7 +85,7 @@ Se configurado corretamente, o Claude usará o MCP para listar os workflows da s
 
 ---
 
-## Solução de Problemas
+## Soluçêo de Problemas
 
 ### "MCP not found" ou "n8n-mcp-api not available"
 
@@ -94,7 +94,7 @@ Se configurado corretamente, o Claude usará o MCP para listar os workflows da s
    claude mcp list
    ```
 
-2. Verifique se as variáveis de ambiente estão configuradas corretamente
+2. Verifique se as variáveis de ambiente estêo configuradas corretamente
 
 3. Tente remover e adicionar novamente:
    ```bash
@@ -106,7 +106,7 @@ Se configurado corretamente, o Claude usará o MCP para listar os workflows da s
 
 1. Regenere a chave API em n8n Settings → API
 2. Verifique se há espaços em branco na chave
-3. Certifique-se de que a chave não expirou
+3. Certifique-se de que a chave nêo expirou
 
 ### "Cannot connect to n8n"
 
@@ -125,7 +125,7 @@ cd n8n-ps
 git pull origin main
 ```
 
-As skills estarão automaticamente disponíveis na próxima vez que você iniciar o Claude Code.
+As skills estarêo automaticamente disponíveis na próxima vez que você iniciar o Claude Code.
 
 ---
 

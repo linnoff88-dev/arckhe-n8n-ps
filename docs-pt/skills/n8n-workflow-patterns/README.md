@@ -11,16 +11,16 @@ Ensina padrões arquiteturais para construir workflows n8n. Fornece estrutura, b
 ## Quando Usar
 
 - Construir workflow
-- Padrão de workflow
+- Padrêo de workflow
 - Arquitetura de workflow
 - Estrutura de workflow
 - Processamento de webhook
-- Integração de API HTTP
+- Integraçêo de API HTTP
 - Sync de banco de dados
 - Agente de IA
 - Chatbot
 - Tarefa agendada
-- Padrão de automação
+- Padrêo de automaçêo
 
 ---
 
@@ -30,10 +30,10 @@ Ensina padrões arquiteturais para construir workflows n8n. Fornece estrutura, b
 **Caso de Uso**: Receber requisições HTTP de sistemas externos e processá-las instantaneamente.
 
 ```
-Webhook → [Validar] → [Transformar] → [Ação] → [Resposta/Notificar]
+Webhook → [Validar] → [Transformar] → [Açêo] → [Resposta/Notificar]
 ```
 
-**Gotcha Crítico**: Dados estão aninhados em `$json.body`
+**Gotcha Crítico**: Dados estêo aninhados em `$json.body`
 ```javascript
 ❌ {{$json.email}}
 ✅ {{$json.body.email}}
@@ -47,16 +47,16 @@ Webhook → [Validar] → [Transformar] → [Ação] → [Resposta/Notificar]
 
 ---
 
-### 2. Integração de API HTTP
+### 2. Integraçêo de API HTTP
 **Caso de Uso**: Buscar dados de APIs REST, transformar e armazenar/usar.
 
 ```
-Trigger → HTTP Request → Transformar → Ação → Error Handler
+Trigger → HTTP Request → Transformar → Açêo → Error Handler
 ```
 
 **Conceitos Chave**:
-- Autenticação via credenciais (nunca hardcode!)
-- Paginação para datasets grandes
+- Autenticaçêo via credenciais (nunca hardcode!)
+- Paginaçêo para datasets grandes
 - Rate limiting para prevenir bloqueios
 - `continueOnFail: true` para tratamento de erros
 
@@ -70,7 +70,7 @@ Schedule → Query → Transformar → Escrever → Verificar
 ```
 
 **Boas Práticas**:
-- Sempre use queries parametrizadas (prevenção de SQL injection)
+- Sempre use queries parametrizadas (prevençêo de SQL injection)
 - Processamento em lote para datasets grandes
 - Acesso read-only para ferramentas de IA
 - Tratamento de transações para operações multi-etapas
@@ -84,12 +84,12 @@ Schedule → Query → Transformar → Escrever → Verificar
 Trigger → AI Agent (Modelo + Ferramentas + Memória) → Output
 ```
 
-**8 Tipos de Conexão IA**:
+**8 Tipos de Conexêo IA**:
 - `ai_languageModel` - Modelos de linguagem (obrigatório)
 - `ai_tool` - Ferramentas que o agente pode usar
-- `ai_memory` - Memória de conversação
+- `ai_memory` - Memória de conversaçêo
 - `ai_outputParser` - Parser de saída
-- `ai_retriever` - Recuperação de documentos (RAG)
+- `ai_retriever` - Recuperaçêo de documentos (RAG)
 - `ai_embedding` - Embeddings
 - `ai_document` - Loaders de documentos
 - `ai_textSplitter` - Divisores de texto
@@ -99,7 +99,7 @@ Trigger → AI Agent (Modelo + Ferramentas + Memória) → Output
 ---
 
 ### 5. Tarefas Agendadas (28% dos workflows)
-**Caso de Uso**: Automação recorrente.
+**Caso de Uso**: Automaçêo recorrente.
 
 ```
 Schedule → Buscar → Processar → Entregar → Logar
@@ -117,7 +117,7 @@ Schedule → Buscar → Processar → Entregar → Logar
 
 ### Fluxo Linear
 ```
-Trigger → Transformar → Ação → Fim
+Trigger → Transformar → Açêo → Fim
 ```
 **Use quando**: Workflows simples com caminho único
 
@@ -135,13 +135,13 @@ Trigger → [Branch 1] → Merge
 ```
 **Use quando**: Operações independentes que podem rodar simultaneamente
 
-### Padrão de Loop
+### Padrêo de Loop
 ```
 Trigger → Split in Batches → Processar → Loop (até terminar)
 ```
 **Use quando**: Processando datasets grandes em chunks
 
-### Padrão Error Handler
+### Padrêo Error Handler
 ```
 Fluxo Principal → [Caminho Sucesso]
               └→ [Error Trigger → Error Handler]
@@ -150,31 +150,31 @@ Fluxo Principal → [Caminho Sucesso]
 
 ---
 
-## Checklist de Criação de Workflow
+## Checklist de Criaçêo de Workflow
 
 ### Fase de Planejamento
-- [ ] Identificar o padrão (webhook, API, banco, IA, agendado)
+- [ ] Identificar o padrêo (webhook, API, banco, IA, agendado)
 - [ ] Listar nodes necessários (use search_nodes)
 - [ ] Entender fluxo de dados (entrada → transformar → saída)
 - [ ] Planejar estratégia de tratamento de erros
 
-### Fase de Implementação
+### Fase de Implementaçêo
 - [ ] Criar workflow com trigger apropriado
 - [ ] Adicionar nodes de fonte de dados
-- [ ] Configurar autenticação/credenciais
-- [ ] Adicionar nodes de transformação (Set, Code, IF)
-- [ ] Adicionar nodes de output/ação
+- [ ] Configurar autenticaçêo/credenciais
+- [ ] Adicionar nodes de transformaçêo (Set, Code, IF)
+- [ ] Adicionar nodes de output/açêo
 - [ ] Configurar tratamento de erros
 
-### Fase de Validação
-- [ ] Validar configuração de cada node (validate_node_operation)
+### Fase de Validaçêo
+- [ ] Validar configuraçêo de cada node (validate_node_operation)
 - [ ] Validar workflow completo (validate_workflow)
 - [ ] Testar com dados de amostra
 - [ ] Tratar casos de borda (dados vazios, erros)
 
 ### Fase de Deploy
 - [ ] Revisar configurações do workflow
-- [ ] Ativar workflow ⚠️ **Ativação manual necessária na UI do n8n** (API/MCP não pode ativar)
+- [ ] Ativar workflow ⚠️ **Ativaçêo manual necessária na UI do n8n** (API/MCP nêo pode ativar)
 - [ ] Monitorar primeiras execuções
 - [ ] Documentar propósito e fluxo de dados do workflow
 
@@ -182,13 +182,13 @@ Fluxo Principal → [Caminho Sucesso]
 
 ## Estatísticas de Padrões
 
-**Distribuição de Triggers**:
+**Distribuiçêo de Triggers**:
 - Webhook: 35% (mais comum)
 - Schedule: 28%
 - Manual: 22%
 - Service triggers: 15%
 
-**Nodes de Transformação**:
+**Nodes de Transformaçêo**:
 - Set: 68%
 - Code: 42%
 - IF: 38%
@@ -251,7 +251,7 @@ Fluxo Principal → [Caminho Sucesso]
 
 ### ✅ Faça
 
-- Comece com o padrão mais simples que resolve seu problema
+- Comece com o padrêo mais simples que resolve seu problema
 - Planeje a estrutura do workflow antes de construir
 - Use tratamento de erros em todos os workflows
 - Teste com dados de amostra antes de ativar
@@ -259,10 +259,10 @@ Fluxo Principal → [Caminho Sucesso]
 - Documente workflows complexos (campo notes)
 - Monitore execuções após deploy
 
-### ❌ Não Faça
+### ❌ Nêo Faça
 
 - Construir workflows de uma vez (itere! média de 56s entre edições)
-- Pular validação antes de ativar
+- Pular validaçêo antes de ativar
 - Ignorar cenários de erro
 - Usar padrões complexos quando simples bastam
 - Hardcodar credenciais em parâmetros
@@ -275,14 +275,14 @@ Fluxo Principal → [Caminho Sucesso]
 ## Arquivos Detalhados
 
 - `webhook_processing.md` - Padrões de webhook, estrutura de dados, tratamento de resposta
-- `http_api_integration.md` - APIs REST, autenticação, paginação, retries
+- `http_api_integration.md` - APIs REST, autenticaçêo, paginaçêo, retries
 - `database_operations.md` - Queries, sync, transações, processamento em lote
 - `ai_agent_workflow.md` - Agentes IA, ferramentas, memória, nodes langchain
 - `scheduled_tasks.md` - Schedules cron, timezone, monitoramento
 
 ---
 
-## Integração com Outras Skills
+## Integraçêo com Outras Skills
 
 - **n8n MCP Tools Expert** - Encontrar e configurar nodes
 - **n8n Expression Syntax** - Escrever expressões corretamente

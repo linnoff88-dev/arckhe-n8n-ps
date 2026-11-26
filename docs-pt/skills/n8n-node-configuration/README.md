@@ -1,6 +1,6 @@
-# Configuração de Nodes n8n
+# Configuraçêo de Nodes n8n
 
-Orientação para configuração de nodes com consciência de operação.
+Orientaçêo para configuraçêo de nodes com consciência de operaçêo.
 
 ---
 
@@ -21,7 +21,7 @@ Esta skill ajuda a configurar nodes n8n corretamente, entendendo dependências d
 
 ## Conceitos Chave
 
-### Configuração Consciente de Operação
+### Configuraçêo Consciente de Operaçêo
 
 Operações diferentes precisam de campos diferentes. Exemplo com node Slack:
 
@@ -47,12 +47,12 @@ resource: "message"
 
 ### Descoberta Progressiva
 
-1. **Comece com essenciais**: `get_node_essentials` - visão rápida
-2. **Depois detalhes completos**: `get_node_info` - documentação completa
+1. **Comece com essenciais**: `get_node_essentials` - visêo rápida
+2. **Depois detalhes completos**: `get_node_info` - documentaçêo completa
 
 ---
 
-## Padrões Comuns de Configuração
+## Padrões Comuns de Configuraçêo
 
 ### HTTP Request
 
@@ -85,7 +85,7 @@ resource: "message"
   operation: "post",
   channel: "#channel-name",  // ou ID do canal
   text: "Mensagem aqui",
-  // Opcional: blocks para formatação rica
+  // Opcional: blocks para formataçêo rica
   blocksUi: {
     blockValues: [
       {
@@ -163,32 +163,32 @@ resource: "message"
 
 ---
 
-## Fluxo de Configuração Recomendado
+## Fluxo de Configuraçêo Recomendado
 
 ```
 1. Pesquisar Node
    └─ search_nodes("slack") → encontrar nome do node
 
 2. Obter Essenciais
-   └─ get_node_essentials("nodes-base.slack") → visão rápida
+   └─ get_node_essentials("nodes-base.slack") → visêo rápida
 
-3. Escolher Operação
+3. Escolher Operaçêo
    └─ Identificar resource + operation necessários
 
 4. Obter Detalhes
-   └─ get_node_info("nodes-base.slack") → campos específicos da operação
+   └─ get_node_info("nodes-base.slack") → campos específicos da operaçêo
 
 5. Configurar
    └─ Preencher campos obrigatórios primeiro
    └─ Adicionar campos opcionais conforme necessário
 
 6. Validar
-   └─ validate_node_operation() → verificar configuração
+   └─ validate_node_operation() → verificar configuraçêo
 ```
 
 ---
 
-## Autenticação
+## Autenticaçêo
 
 ### Tipos de Credenciais
 
@@ -196,14 +196,14 @@ resource: "message"
 |------|-----|
 | OAuth2 | Google, Slack, HubSpot, etc. |
 | API Key | OpenAI, Stripe, muitos serviços |
-| HTTP Basic | Autenticação básica |
+| HTTP Basic | Autenticaçêo básica |
 | HTTP Header | Token em header customizado |
 
-### Configuração
+### Configuraçêo
 
-Credenciais são configuradas:
+Credenciais sêo configuradas:
 1. **Na UI do n8n**: Settings → Credentials → Create
-2. **Referenciadas no workflow**: Seção "Credentials" do node
+2. **Referenciadas no workflow**: Seçêo "Credentials" do node
 
 **Nunca hardcode credenciais nos parâmetros!**
 
@@ -215,14 +215,14 @@ Credenciais são configuradas:
 
 ```javascript
 options: {
-  // Campos opcionais específicos da operação
+  // Campos opcionais específicos da operaçêo
   timeout: 5000,
   retry: true,
   // etc.
 }
 ```
 
-### Campos de Paginação
+### Campos de Paginaçêo
 
 ```javascript
 {
@@ -247,19 +247,19 @@ where: {
 
 ## Dicas de Troubleshooting
 
-### Node não aceita minha configuração
+### Node nêo aceita minha configuraçêo
 
-1. Verifique se `resource` e `operation` estão corretos
+1. Verifique se `resource` e `operation` estêo corretos
 2. Verifique campos obrigatórios com `get_node_info`
 3. Valide com `validate_node_operation`
 
-### Credenciais não funcionando
+### Credenciais nêo funcionando
 
 1. Teste as credenciais separadamente
 2. Verifique escopos OAuth necessários
 3. Regenere tokens se expirados
 
-### Dados não aparecendo no próximo node
+### Dados nêo aparecendo no próximo node
 
 1. Verifique a saída do node anterior
 2. Use expressões corretas: `{{$json.field}}`
@@ -267,9 +267,9 @@ where: {
 
 ---
 
-## Integração com Outras Skills
+## Integraçêo com Outras Skills
 
 - **n8n MCP Tools Expert** - Encontrar nodes e operações
 - **n8n Workflow Patterns** - Onde o node se encaixa no fluxo
 - **n8n Expression Syntax** - Expressões nos campos
-- **n8n Validation Expert** - Validar configuração
+- **n8n Validation Expert** - Validar configuraçêo

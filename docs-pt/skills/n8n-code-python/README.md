@@ -14,7 +14,7 @@ Esta skill ajuda a escrever código Python correto em nodes Code do n8n, usando 
 
 - Escrevendo Python em nodes Code
 - Usando sintaxe `_input`, `_json`, `_node`
-- Trabalhando com biblioteca padrão Python
+- Trabalhando com biblioteca padrêo Python
 - Entendendo limitações do Python no n8n
 
 ---
@@ -63,10 +63,10 @@ email = _node["Webhook"].json["body"]["email"]
 all_items = _node["HTTP Request"].all()
 ```
 
-### Dados de Execução
+### Dados de Execuçêo
 
 ```python
-# ID da execução atual
+# ID da execuçêo atual
 execution_id = _execution_id
 
 # ID do workflow
@@ -87,7 +87,7 @@ now = _now
 
 ```python
 return {
-    "name": "João",
+    "name": "Joêo",
     "email": "joao@exemplo.com"
 }
 ```
@@ -116,9 +116,9 @@ return result
 
 ---
 
-## Biblioteca Padrão Disponível
+## Biblioteca Padrêo Disponível
 
-O n8n disponibiliza módulos comuns da biblioteca padrão:
+O n8n disponibiliza módulos comuns da biblioteca padrêo:
 
 ```python
 import json
@@ -207,7 +207,7 @@ for item in items:
 return dict(grouped)
 ```
 
-### Validação de Dados
+### Validaçêo de Dados
 
 ```python
 import re
@@ -229,24 +229,24 @@ return {"valid": True, "data": data}
 
 ## Limitações do Python no n8n
 
-### ❌ NÃO Disponível
+### ❌ NêO Disponível
 
 ```python
 # Requisições HTTP - use JavaScript ou node HTTP Request
-import requests  # NÃO FUNCIONA
+import requests  # NêO FUNCIONA
 
 # Pacotes externos
-import pandas  # NÃO FUNCIONA
-import numpy   # NÃO FUNCIONA
+import pandas  # NêO FUNCIONA
+import numpy   # NêO FUNCIONA
 
 # Operações de sistema
 import os      # LIMITADO
-import subprocess  # NÃO FUNCIONA
+import subprocess  # NêO FUNCIONA
 ```
 
 ### Alternativas
 
-| Necessidade | Solução |
+| Necessidade | Soluçêo |
 |-------------|---------|
 | HTTP requests | Use node HTTP Request ou Code JS |
 | Pandas/NumPy | Use serviço Python externo |
@@ -263,7 +263,7 @@ from datetime import datetime, timedelta
 # Data atual
 now = datetime.now()
 
-# Formatação
+# Formataçêo
 formatted = now.strftime("%Y-%m-%d %H:%M:%S")
 date_only = now.strftime("%Y-%m-%d")
 brazilian = now.strftime("%d/%m/%Y")
@@ -277,7 +277,7 @@ tomorrow = now + timedelta(days=1)
 last_week = now - timedelta(weeks=1)
 hours_ago = now - timedelta(hours=3)
 
-# Comparação
+# Comparaçêo
 is_future = parsed > now
 diff = (now - parsed).days
 
@@ -302,7 +302,7 @@ email = _json["email"]
 ### ❌ Retornando tipo incorreto
 
 ```python
-# ERRADO - não é dict ou list
+# ERRADO - nêo é dict ou list
 return "sucesso"
 
 # CORRETO
@@ -315,18 +315,18 @@ return {"status": "sucesso"}
 # ERRADO - causa KeyError
 email = _json["email"]
 
-# CORRETO - com valor padrão
+# CORRETO - com valor padrêo
 email = _json.get("email", "")
 ```
 
-### ❌ Importando pacotes não disponíveis
+### ❌ Importando pacotes nêo disponíveis
 
 ```python
 # ERRADO
 import requests
 import pandas
 
-# CORRETO - use apenas biblioteca padrão
+# CORRETO - use apenas biblioteca padrêo
 import json
 import datetime
 ```
@@ -337,7 +337,7 @@ import datetime
 
 ### Use Python quando:
 - Preferência pessoal por Python
-- Lógica simples de transformação
+- Lógica simples de transformaçêo
 - Operações com strings e regex
 - Cálculos matemáticos
 
@@ -345,11 +345,11 @@ import datetime
 - Precisa de requisições HTTP (`$helpers.httpRequest`)
 - Precisa de DateTime do Luxon
 - Acesso a funções específicas do n8n (`$helpers.generateUuid`)
-- Melhor suporte e documentação
+- Melhor suporte e documentaçêo
 
 ---
 
-## Integração com Outras Skills
+## Integraçêo com Outras Skills
 
 - **n8n Expression Syntax** - Expressões em campos de parâmetros
 - **n8n Node Configuration** - Quando usar Code vs outros nodes

@@ -1,6 +1,6 @@
-# Matriz de Seleção de Ferramenta
+# Matriz de Seleçêo de Ferramenta
 
-Critérios detalhados de decisão para escolher entre n8n, Python ou abordagens híbridas.
+Critérios detalhados de decisêo para escolher entre n8n, Python ou abordagens híbridas.
 
 ---
 
@@ -12,63 +12,63 @@ Antes de escrever uma única linha de código ou arrastar um único node:
 
 ---
 
-## Matriz de Decisão
+## Matriz de Decisêo
 
-### Complexidade de Autenticação
+### Complexidade de Autenticaçêo
 
 | Cenário | Ferramenta Recomendada | Justificativa |
 |---------|------------------------|---------------|
 | API key simples | Qualquer uma | Trivial de qualquer forma |
 | OAuth 2.0 (Google, Slack, HubSpot) | **n8n** | Ciclo de vida de tokens gerenciado, tratamento de refresh |
-| Implementação OAuth customizada | Python | Controle total necessário |
+| Implementaçêo OAuth customizada | Python | Controle total necessário |
 | OAuth multi-tenant | Híbrido | n8n por tenant, Python para gerenciamento |
 
-**A Verificação de Realidade do OAuth:**
+**A Verificaçêo de Realidade do OAuth:**
 - URLs de redirect
-- Códigos de autorização
+- Códigos de autorizaçêo
 - Access tokens
 - Refresh tokens
-- Expiração de tokens
+- Expiraçêo de tokens
 - Armazenamento seguro
-- Tratamento de rotação
+- Tratamento de rotaçêo
 
 O n8n lida com TUDO isso. Implementações Python frequentemente armazenam tokens em texto puro.
 
 ---
 
-### Avaliação de Manutenibilidade
+### Avaliaçêo de Manutenibilidade
 
-| Equipe de Manutenção | Ferramenta Recomendada | Por quê |
+| Equipe de Manutençêo | Ferramenta Recomendada | Por quê |
 |---------------------|------------------------|---------|
-| Usuários de negócio não-técnicos | **n8n** | Visual = auto-documentado |
-| Misto técnico/não-técnico | **Híbrido** | n8n para UI, Python para lógica |
+| Usuários de negócio nêo-técnicos | **n8n** | Visual = auto-documentado |
+| Misto técnico/nêo-técnico | **Híbrido** | n8n para UI, Python para lógica |
 | Equipe dev dedicada | Qualquer uma | Escolha baseado em outros fatores |
 | Dev solo, handoff futuro desconhecido | **n8n** | Menor barreira para sucessor |
-| Rotação de terceirizados/offshore | **n8n** | Reduz tempo de ramp-up |
+| Rotaçêo de terceirizados/offshore | **n8n** | Reduz tempo de ramp-up |
 
 **O Teste do Ônibus:**
 > "Se eu for atropelado por um ônibus, alguém consegue entender isso em um dia?"
 
 ---
 
-### Duração do Processo
+### Duraçêo do Processo
 
-| Duração do Processo | Ferramenta Recomendada | Implementação |
+| Duraçêo do Processo | Ferramenta Recomendada | Implementaçêo |
 |--------------------|------------------------|---------------|
-| Segundos a minutos | Qualquer uma | Execução padrão |
+| Segundos a minutos | Qualquer uma | Execuçêo padrêo |
 | Horas | **n8n** | Node Wait |
 | Dias a semanas | **n8n** | Node Wait com retomada |
-| Aprovação humana necessária | **n8n** | Padrão Webhook + Wait |
-| Máquina de estados complexa | Híbrido | Orquestração n8n, estado no DB |
+| Aprovaçêo humana necessária | **n8n** | Padrêo Webhook + Wait |
+| Máquina de estados complexa | Híbrido | Orquestraçêo n8n, estado no DB |
 
 **Por que Espera Importa:**
 
 "Espera" em Python:
 ```python
-# Opção A: Servidor fica rodando (caro)
+# Opçêo A: Servidor fica rodando (caro)
 time.sleep(259200)  # 3 dias
 
-# Opção B: Gerenciamento de estado complexo
+# Opçêo B: Gerenciamento de estado complexo
 # - Salvar estado no banco de dados
 # - Configurar agendador
 # - Reconstruir contexto na retomada
@@ -86,8 +86,8 @@ Espera em n8n:
 
 | Característica de Dados | Limite | Ferramenta Recomendada |
 |------------------------|--------|------------------------|
-| Registros por execução | < 5.000 | n8n |
-| Registros por execução | > 5.000 | **Python** |
+| Registros por execuçêo | < 5.000 | n8n |
+| Registros por execuçêo | > 5.000 | **Python** |
 | Tamanho de arquivo | < 20 MB | n8n |
 | Tamanho de arquivo | > 20 MB | **Python** |
 | Processamento em memória | < 500 MB | n8n (com cautela) |
@@ -95,9 +95,9 @@ Espera em n8n:
 | Streaming necessário | Sim | **Python** |
 | Processamento em lote | Lotes grandes | **Python** |
 
-**Prevenção de Crash de Memória:**
+**Prevençêo de Crash de Memória:**
 
-n8n roda em Node.js com limites de memória padrão. Estas operações vão crashar:
+n8n roda em Node.js com limites de memória padrêo. Estas operações vêo crashar:
 - Carregar PDF de 50MB na memória
 - Iterar 10.000 linhas mantendo todas em memória
 - Processar arquivos de vídeo
@@ -122,7 +122,7 @@ Soluções Python:
 | Processamento algorítmico | Qualquer | **Python** |
 | Matching fuzzy | Complexo | **Python** |
 | Transformações matemáticas | Complexas | **Python** |
-| Acumulação de estado em loops | Sim | **Python** |
+| Acumulaçêo de estado em loops | Sim | **Python** |
 
 **O Teto de Complexidade Visual:**
 
@@ -131,7 +131,7 @@ Você ultrapassou quando:
 - Linhas cruzando por todo lado
 - Nodes empilhados incompreensivelmente
 - Precisa dar zoom out para ver a estrutura
-- Não consegue ler labels dos nodes no zoom utilizável
+- Nêo consegue ler labels dos nodes no zoom utilizável
 
 **O Teste das 20 Linhas:**
 > "Essa lógica pode ser expressa em 20 linhas de código legível?"
@@ -140,11 +140,11 @@ Você ultrapassou quando:
 
 ---
 
-### Requisitos de Inovação
+### Requisitos de Inovaçêo
 
 | Requisito | Ferramenta Recomendada |
 |-----------|------------------------|
-| Integrações SaaS padrão | n8n |
+| Integrações SaaS padrêo | n8n |
 | Bibliotecas de IA recentes (< 6 meses) | **Python** |
 | Frameworks experimentais | **Python** |
 | GraphRAG, padrões RAG avançados | **Python** |
@@ -160,7 +160,7 @@ Se você precisa de algo lançado no mês passado → use Python.
 
 ## Padrões de Arquitetura Híbrida
 
-### Padrão 1: Orquestração n8n + Microsserviço Python
+### Padrêo 1: Orquestraçêo n8n + Microsserviço Python
 
 ```
 ┌──────────────────────────────────────────────────┐
@@ -178,7 +178,7 @@ Se você precisa de algo lançado no mês passado → use Python.
 │  ┌─────────────────────────────────────────────┐ │
 │  │ • Processamento de dados complexo           │ │
 │  │ • Operações de IA/ML                        │ │
-│  │ • Computação pesada                         │ │
+│  │ • Computaçêo pesada                         │ │
 │  │ • Retorna resultado JSON                    │ │
 │  └─────────────────────────────────────────────┘ │
 └──────────────────────────────────────────────────┘
@@ -186,7 +186,7 @@ Se você precisa de algo lançado no mês passado → use Python.
 
 **Use quando**: Precisa de capacidades Python mas quer integrações do n8n
 
-### Padrão 2: Nodes Code no n8n
+### Padrêo 2: Nodes Code no n8n
 
 ```
 ┌──────────────────────────────────────────────────┐
@@ -202,7 +202,7 @@ Se você precisa de algo lançado no mês passado → use Python.
 
 **Use quando**: Lógica é complexa mas contida, sem serviço externo necessário
 
-### Padrão 3: Handoff Orientado a Eventos
+### Padrêo 3: Handoff Orientado a Eventos
 
 ```
 Workflow n8n A             Serviço Python            Workflow n8n B
@@ -214,11 +214,11 @@ Workflow n8n A             Serviço Python            Workflow n8n B
                            └───────────────┘
 ```
 
-**Use quando**: Processos Python de longa duração, padrões assíncronos
+**Use quando**: Processos Python de longa duraçêo, padrões assíncronos
 
 ---
 
-## Fluxograma de Decisão
+## Fluxograma de Decisêo
 
 ```
                     INÍCIO
@@ -227,28 +227,28 @@ Workflow n8n A             Serviço Python            Workflow n8n B
               ┌───────────────┐
               │ OAuth necess.?│
               └───────┬───────┘
-                 Sim  │  Não
+                 Sim  │  Nêo
           ┌───────────┴───────────┐
           ▼                       ▼
     Use n8n para auth      ┌───────────────┐
           │               │ > 5000 registros│
           │               │ ou > 20MB arq.? │
           │               └───────┬───────┘
-          │                  Sim  │  Não
+          │                  Sim  │  Nêo
           │           ┌───────────┴───────────┐
           │           ▼                       ▼
           │     Use Python para          ┌───────────────┐
           │     processamento            │ > 20 nodes de │
           │           │                  │ lógica negócio│
           │           │                  └───────┬───────┘
-          │           │                    Sim  │  Não
+          │           │                    Sim  │  Nêo
           │           │             ┌───────────┴───────────┐
           │           │             ▼                       ▼
           │           │       Use nodes Code          ┌───────────────┐
           │           │       no n8n                  │ Mantenedores  │
-          │           │             │                 │ não-técnicos? │
+          │           │             │                 │ nêo-técnicos? │
           │           │             │                 └───────┬───────┘
-          │           │             │                    Sim  │  Não
+          │           │             │                    Sim  │  Nêo
           │           │             │             ┌───────────┴───────────┐
           │           │             │             ▼                       ▼
           │           │             │        Use n8n               Use qualquer
@@ -257,7 +257,7 @@ Workflow n8n A             Serviço Python            Workflow n8n B
           └───────────┴─────────────┴─────────────┴───────────────────────┘
                                           │
                                           ▼
-                                   IMPLEMENTAÇÃO
+                                   IMPLEMENTAÇêO
 ```
 
 ---
@@ -271,37 +271,37 @@ Workflow n8n A             Serviço Python            Workflow n8n B
 **Realidade**: Python requer mais infraestrutura, handoff mais difícil, reinventa rodas de OAuth.
 
 ### 3. "Vamos Otimizar Depois"
-**Realidade**: Decisões de arquitetura se acumulam. Escolha errada de ferramenta no início = migração dolorosa depois.
+**Realidade**: Decisões de arquitetura se acumulam. Escolha errada de ferramenta no início = migraçêo dolorosa depois.
 
 ### 4. "Funciona nos Testes"
-**Realidade**: Produção tem volume, casos de borda, falhas. Teste com dados realistas.
+**Realidade**: Produçêo tem volume, casos de borda, falhas. Teste com dados realistas.
 
 ### 5. "A Demo Ficou Ótima"
-**Realidade**: Demos mostram caminhos felizes. Produção precisa de tratamento de erros, monitoramento, recuperação.
+**Realidade**: Demos mostram caminhos felizes. Produçêo precisa de tratamento de erros, monitoramento, recuperaçêo.
 
 ---
 
-## Cartão de Referência Rápida
+## Cartêo de Referência Rápida
 
 | Fator | n8n | Python | Híbrido |
 |-------|-----|--------|---------|
 | Serviços OAuth | ✅ | ⚠️ | ✅ |
-| Mantenedores não-técnicos | ✅ | ❌ | ⚠️ |
+| Mantenedores nêo-técnicos | ✅ | ❌ | ⚠️ |
 | Esperas de vários dias | ✅ | ⚠️ | ✅ |
 | Dados grandes (5k+ linhas) | ❌ | ✅ | ✅ |
 | Arquivos grandes (20MB+) | ❌ | ✅ | ✅ |
 | Algoritmos complexos | ⚠️ | ✅ | ✅ |
 | IA de ponta | ❌ | ✅ | ✅ |
-| Integrações padrão | ✅ | ⚠️ | ✅ |
+| Integrações padrêo | ✅ | ⚠️ | ✅ |
 | Prototipagem rápida | ✅ | ⚠️ | ⚠️ |
-| Manutenção longo prazo | ✅ | ⚠️ | ✅ |
+| Manutençêo longo prazo | ✅ | ⚠️ | ✅ |
 
-**Legenda**: ✅ Recomendado | ⚠️ Possível com ressalvas | ❌ Não recomendado
+**Legenda**: ✅ Recomendado | ⚠️ Possível com ressalvas | ❌ Nêo recomendado
 
 ---
 
 ## Skills Relacionadas
 
-- **n8n-code-javascript** - Quando nodes Code são a resposta
+- **n8n-code-javascript** - Quando nodes Code sêo a resposta
 - **n8n-code-python** - Para nodes Code Python
-- **n8n-workflow-patterns** - Uma vez escolhida a ferramenta, escolha o padrão certo
+- **n8n-workflow-patterns** - Uma vez escolhida a ferramenta, escolha o padrêo certo

@@ -6,7 +6,7 @@ Guia expert para usar ferramentas n8n-mcp efetivamente.
 
 ## Propósito
 
-Esta skill ajuda a selecionar e usar as ferramentas MCP corretas para descoberta de nodes, gerenciamento de workflows, validação e execução.
+Esta skill ajuda a selecionar e usar as ferramentas MCP corretas para descoberta de nodes, gerenciamento de workflows, validaçêo e execuçêo.
 
 ---
 
@@ -27,8 +27,8 @@ Esta skill ajuda a selecionar e usar as ferramentas MCP corretas para descoberta
 |------------|-------------|---------|
 | `search_nodes` | Encontrar nodes por palavra-chave | `search_nodes({query: "webhook"})` |
 | `list_nodes` | Listar por categoria/pacote | `list_nodes({category: "core"})` |
-| `get_node_essentials` | Visão rápida do node (use primeiro!) | `get_node_essentials({nodeName: "nodes-base.slack"})` |
-| `get_node_info` | Documentação completa | `get_node_info({nodeName: "nodes-base.slack"})` |
+| `get_node_essentials` | Visêo rápida do node (use primeiro!) | `get_node_essentials({nodeName: "nodes-base.slack"})` |
+| `get_node_info` | Documentaçêo completa | `get_node_info({nodeName: "nodes-base.slack"})` |
 | `get_node_documentation` | Docs legíveis com exemplos | `get_node_documentation({nodeName: "nodes-base.slack"})` |
 | `list_ai_tools` | Nodes com capacidade IA | `list_ai_tools()` |
 
@@ -39,11 +39,11 @@ Esta skill ajuda a selecionar e usar as ferramentas MCP corretas para descoberta
 | `n8n_create_workflow` | Criar novo workflow | `n8n_create_workflow({name: "Meu Workflow", nodes: [...], connections: {...}})` |
 | `n8n_get_workflow` | Obter workflow por ID | `n8n_get_workflow({workflowId: "abc123"})` |
 | `n8n_update_partial_workflow` | Atualizações incrementais | `n8n_update_partial_workflow({workflowId: "abc", addNodes: [...]})` |
-| `n8n_update_full_workflow` | Substituição completa | `n8n_update_full_workflow({workflowId: "abc", workflow: {...}})` |
+| `n8n_update_full_workflow` | Substituiçêo completa | `n8n_update_full_workflow({workflowId: "abc", workflow: {...}})` |
 | `n8n_list_workflows` | Listar todos workflows | `n8n_list_workflows()` |
 | `n8n_delete_workflow` | Deletar workflow | `n8n_delete_workflow({workflowId: "abc"})` |
 
-### Validação
+### Validaçêo
 
 | Ferramenta | Quando Usar | Exemplo |
 |------------|-------------|---------|
@@ -62,13 +62,13 @@ Esta skill ajuda a selecionar e usar as ferramentas MCP corretas para descoberta
 | `get_template` | Obter JSON completo | `get_template({templateId: "123"})` |
 | `get_templates_for_task` | Templates por tipo de tarefa | `get_templates_for_task({task: "notification"})` |
 
-### Execução
+### Execuçêo
 
 | Ferramenta | Quando Usar | Exemplo |
 |------------|-------------|---------|
 | `n8n_trigger_webhook_workflow` | Disparar via webhook | `n8n_trigger_webhook_workflow({path: "my-webhook", data: {...}})` |
 | `n8n_list_executions` | Histórico de execuções | `n8n_list_executions({workflowId: "abc"})` |
-| `n8n_get_execution` | Detalhes de execução | `n8n_get_execution({executionId: "123"})` |
+| `n8n_get_execution` | Detalhes de execuçêo | `n8n_get_execution({executionId: "123"})` |
 | `n8n_health_check` | Verificar conectividade | `n8n_health_check()` |
 
 ---
@@ -84,7 +84,7 @@ Resultado: nodes-base.slack, nodes-base.slackTrigger
 ↓
 get_node_essentials({nodeName: "nodes-base.slack"})
 ↓
-Visão rápida de operações disponíveis
+Visêo rápida de operações disponíveis
 ```
 
 ### 2. Encontrar Templates de Exemplo
@@ -103,7 +103,7 @@ JSON completo do workflow para referência
 
 ```
 n8n_create_workflow({
-  name: "Notificação Webhook → Slack",
+  name: "Notificaçêo Webhook → Slack",
   nodes: [...],
   connections: {...}
 })
@@ -142,7 +142,7 @@ Para descobrir e entender um node:
 
 ```
 1. search_nodes({query: "termo"})         # Encontrar candidatos
-2. get_node_essentials({nodeName: "..."}) # Visão rápida
+2. get_node_essentials({nodeName: "..."}) # Visêo rápida
 3. get_node_info({nodeName: "..."})       # Detalhes completos (se necessário)
 ```
 
@@ -243,24 +243,24 @@ Para desenvolvimento de workflow:
 
 ## Dicas de Troubleshooting
 
-### Ferramenta não encontra o node
+### Ferramenta nêo encontra o node
 
-- Use nome completo: `nodes-base.slack` não apenas `slack`
+- Use nome completo: `nodes-base.slack` nêo apenas `slack`
 - Verifique se o node existe: `search_nodes({query: "nome"})`
 
-### Validação falha
+### Validaçêo falha
 
 - Verifique campos obrigatórios com `get_node_info`
-- Use perfil de validação apropriado
+- Use perfil de validaçêo apropriado
 - Veja skill `n8n-validation-expert` para interpretar erros
 
-### Workflow não ativa
+### Workflow nêo ativa
 
-- **Ativação requer UI do n8n** - API/MCP não pode ativar workflows
-- Workflow é criado inativo por padrão
+- **Ativaçêo requer UI do n8n** - API/MCP nêo pode ativar workflows
+- Workflow é criado inativo por padrêo
 - Usuário deve ativar manualmente na interface
 
-### Conexões não funcionam
+### Conexões nêo funcionam
 
 - Verifique nomes dos nodes (case-sensitive)
 - Verifique estrutura de conexões
@@ -268,9 +268,9 @@ Para desenvolvimento de workflow:
 
 ---
 
-## Integração com Outras Skills
+## Integraçêo com Outras Skills
 
 - **n8n Workflow Patterns** - Estruturas de workflow para criar
 - **n8n Node Configuration** - Como configurar nodes específicos
 - **n8n Expression Syntax** - Expressões em parâmetros
-- **n8n Validation Expert** - Interpretar erros de validação
+- **n8n Validation Expert** - Interpretar erros de validaçêo
